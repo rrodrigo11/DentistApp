@@ -4,18 +4,18 @@ const express = require('express');
 //         loginRouter,
 //         odonRouter,
 //         userRouter} = require('./routes');
-const historialRouter = require('./routes/historial_route');
-const loginRouter = require('./routes/login_route');
-const odonRouter = require('./routes/odon_route');
-const userRouter = require('./routes/user_route');
+const historialRouter = require('./app/backend/routes/historial_route');
+const loginRouter = require('./app/backend/routes/login_route');
+const odonRouter = require('./app/backend/routes/odon_route');
+const userRouter = require('./app/backend/routes/user_route');
 
-const cors = require('cors');
+//const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
-const swaggerJsDoc = require('swagger-jsdoc');
-const swaggerUI = require('swagger-ui-express');
+//const swaggerJsDoc = require('swagger-jsdoc');
+//const swaggerUI = require('swagger-ui-express');
 
-const swaggerOptions = {
+/*const swaggerOptions = {
         swaggerDefinition: {
                 swagger:"2.0",
                 info: {
@@ -25,16 +25,16 @@ const swaggerOptions = {
                         "servers": ["http://localhost:3000"]    
                 }  
         },
-        apis: ['index.js', './routes/login_route.js']
-}
-const swaggerDoc = swaggerJsDoc();
+        apis: ['index.js', './app/backend/routes/login_route.js']
+}*/
+//const swaggerDoc = swaggerJsDoc();
 /*MIDDLEWARES*/
 app.use(express.json());
-app.use(cors());
+//app.use(cors());
 //app.use(express.static(__dirname+'/public'));
 
 /*ROUTES*/
-app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+//app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/historial_route', historialRouter);
 app.use('/user_route', userRouter);
 app.use('/login_route', loginRouter);
