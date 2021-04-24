@@ -20,18 +20,38 @@ import { OdontogramRegisterComponent } from './components/register/odontogram/od
 const routes: Routes = [
   {path:'', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LogInComponent},
-  {path: 'dentist', component: DentistInfoComponent},
-  {path: 'dentist-list', component: DentistListComponent},
-  {path: 'dentist/register', component: DentistRegisterComponent},
-  {path: 'client', component: ClientInfoComponent},
-  {path: 'client-list', component: ClientListComponent},
-  {path: 'client/register', component: ClientRegisterComponent},
-  {path: 'clinic-history', component: ClinicHistoryInfoComponent },
-  {path: 'clinic-history-list', component: ClinicHistoryListComponent},
-  {path: 'clinic-history/register', component: ClinicHistoryRegisterComponent},
-  {path: 'odontogram', component: OdontogramInfoComponent},
-  {path: 'odontogram-list', component: OdontogramListComponent},
-  {path: 'odontogram/register', component: OdontogramRegisterComponent},
+  {path : 'dentist' , children:
+    [
+      {path: '' , component: DentistInfoComponent},
+      {path : 'list' , component: DentistListComponent},
+      {path : 'register' , component: DentistRegisterComponent}
+
+    ]
+  },
+  {path : 'client' , children:
+    [
+      {path: '' , component: ClientInfoComponent},
+      {path : 'list' , component: ClientListComponent},
+      {path : 'register' , component: ClientRegisterComponent}
+
+    ]
+  },
+  {path : 'clinic' , children:
+    [
+      {path: '' , component: ClinicHistoryInfoComponent},
+      {path : 'list' , component: ClinicHistoryListComponent},
+      {path : 'register' , component: ClinicHistoryRegisterComponent}
+
+    ]
+  },
+  {path : 'odontogram' , children:
+    [
+      {path: '' , component: OdontogramInfoComponent},
+      {path : 'list' , component: OdontogramListComponent},
+      {path : 'register' , component: OdontogramRegisterComponent}
+
+    ]
+  },
   {path: '**', component: NotFoundComponent}
 ];
 

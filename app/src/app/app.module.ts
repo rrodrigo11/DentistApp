@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
+import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +20,8 @@ import { OdontogramRegisterComponent } from './components/register/odontogram/od
 import { OdontogramInfoComponent } from './components/cruds/odontogram/odontogram-info/odontogram-info.component';
 import { OdontogramListComponent } from './components/cruds/odontogram/odontogram-list/odontogram-list.component';
 import { DentistListComponent } from './components/cruds/dentist/dentist-list/dentist-list.component';
+import { environment } from 'src/environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -40,9 +44,26 @@ import { DentistListComponent } from './components/cruds/dentist/dentist-list/de
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     NgbModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              environment.clientId
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

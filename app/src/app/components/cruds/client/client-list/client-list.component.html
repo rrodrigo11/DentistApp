@@ -1,1 +1,15 @@
-<p>client-list works!</p>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+
+<table id="myTable">
+    <tr class="header">
+        <th style="width:40%;">Name</th>
+        <th style="width:60%;">Picture</th>
+    </tr>
+       
+        <tr *ngFor="let user of users">
+            <a routerLink="/client-list">
+                <td>{{user.name}}</td>
+            </a>
+            <td>{{user.picture}}</td>
+        </tr>
+</table>
