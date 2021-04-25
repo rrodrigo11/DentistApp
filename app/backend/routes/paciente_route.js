@@ -1,38 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const users = require('../db/db_users');
-const patients = require('../db/db_pacientes');
+const pacientes = require('../db/db_pacientes');
 const bcryptjs = require('bcryptjs');
 
-/**
- * @swagger
- * /:
- *  post:
- *      description: get all users and create new users
- *      parameters:
- *          - in: query
- *              name: search
- *              description: search query param
- *              schema:
- *                  type: string
- *      responses:
- *          200:
- *              description: success call to the endpoint
- */
 
 router.route('/')
     .get(async(req, res)=>{
-        let usr = await users.showUsers();
-        res.send(usr);
+        let ptt = await pacientes.showPacientes();
+        res.send(ptt);
     })
     .post(async(req, res)=>{
         console.log(req.body);
-        let {name, email, password, image, pacientes} = req.body;
+        let {name, email, password, phoneNumber, image, dentista, address, weight, height} = req.body;
         let faltan ="";
 
         faltan+=name?'':'name, ';
         faltan+=email?'':'email, ';
         faltan+=password?'':'password, ';
+        faltan+=phoneNumber?'':'phoneNumber, ';
+        faltan+=dentista?'':'dentista, ';
         console.log(faltan.length);
 
         if(faltan.length>0){
@@ -41,19 +28,19 @@ router.route('/')
             return;
         }
 
-        let usr = await users.showUsers();
+        let ptt = await pacientes.showPacientes();
 
-        for (let i = 0; i < usr.length; i++) {
-            if(usr[i].email == email){
-                res.status(400).send({Error: "Ya existe un usuario con esa información."});
+        for (let i = 0; i < ptt.length; i++) {
+            if(ptt[i].email == email){
+                res.status(400).send({Error: "Ya existe un paciente con esa información."});
                 return;
             }  
         }
 
-        let newUser = await users.saveUsers({name, email, password, image, pacientes});
+        let newPtt = await pacientes.savePacientes({name, email, password, phoneNumber, image, dentista, address, weight, height});
 
-        if(newUser){
-            res.status(201).send({usuario: newUser});
+        if(newPtt){
+            res.status(201).send({usuario: newPtt});
         }else{
             res.status(400).send({error:"No se pudo guardar. Verifique los datos y su conexión"});
         }
@@ -76,15 +63,15 @@ router.route('/')
  */
 router.route('/:email')
     .delete(async(req, res) => {
-        let usr = await users.showUsers();
+        let ptt = await pacientes.showPacientes();
         
-        if(!usr.find(u => u.email == req.params.email)){
-            res.status(400).send({Error: "No existe el usuario a eliminar."});
+        if(!ptt.find(p => p.email == req.params.email)){
+            res.status(400).send({Error: "No existe el paciente a eliminar."});
             return;
         }
-        let deletedUsr = await users.deleteUsers(req.params.email);
-        if(deletedUsr){
-            res.status(200).send({usuario_eliminado: deletedUsr});
+        let deletedPtt = await pacientes.deletePaciente(req.params.email);
+        if(deletedPtt){
+            res.status(200).send({paciente_eliminado: deletedPtt});
         }else{
             res.status(400).send({error:"No se pudo eliminar. Verifique los datos y su conexión"});
         }
@@ -93,22 +80,22 @@ router.route('/:email')
         if(req.params.email == req.body.email){
             let doc;
             try{
-                doc = await users.getUserByEmail(req.params.email);
+                doc = await pacientes.getPacienteByEmail(req.params.email);
                 if(doc){
-                    await doc.actualizarUsuario(req.body);
+                    await doc.actualizarPaciente(req.body);
                     res.send();
                 }
             }catch(err){
-                res.status(404).send({error: "No se encontro el usuario"})
+                res.status(404).send({error: "No se encontro el paciente"})
             }
         }else{
             res.status(400).send({error:"No se debe de cambiar el correo."})
         }
     })
     .get( async(req, res)=>{
-        let usr = await users.getUserByEmail(req.params.email);
-        if(usr){
-            res.status(200).send(usr);
+        let ptt = await pacientes.getPacienteByEmail(req.params.email);
+        if(ptt){
+            res.status(200).send(ptt);
             return;
         }
     })

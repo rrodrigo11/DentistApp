@@ -1,4 +1,7 @@
 const express = require('express');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 // const {historialRouter,
 //         loginRouter,
@@ -8,6 +11,8 @@ const historialRouter = require('./app/backend/routes/historial_route');
 const loginRouter = require('./app/backend/routes/login_route');
 const odonRouter = require('./app/backend/routes/odon_route');
 const userRouter = require('./app/backend/routes/user_route');
+const pacienteRouter = require('./app/backend/routes/paciente_route');
+//const mongodb = require('./app/backend/db/db_connect');
 
 //const cors = require('cors');
 const app = express();
@@ -37,6 +42,7 @@ app.use(express.json());
 //app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/historial_route', historialRouter);
 app.use('/user_route', userRouter);
+app.use('/paciente_route', pacienteRouter);
 app.use('/login_route', loginRouter);
 app.use('/odon_route', odonRouter);
 

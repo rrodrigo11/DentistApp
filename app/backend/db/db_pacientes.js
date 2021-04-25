@@ -1,0 +1,102 @@
+const mongoose = require('./db_connect');
+const bcryptjs = require('bcryptjs');
+
+let pacienteSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    phoneNumber: {
+        type: Number,
+        required: true
+    },
+    image: {
+        type: String
+    },
+    dentista: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    weight: {
+        type: String,
+        required: false
+    },
+    height: {
+        type: String,
+        required: false
+    }
+});
+
+pacienteSchema.statics.showPacientes = async () => {
+    try {
+        let resp = await pacientes.find();
+        return resp;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+pacienteSchema.statics.savePacientes = async (newPtt) => {
+    let hash = bcryptjs.hashSync(newPtt.password, 8);
+    newPtt.password = hash;
+    let ptt = pacientes(newPtt);
+    let doc;
+    try {
+        doc = await ptt.save();
+        console.log(doc);
+    } catch (e) {
+        console.log("Ocurrio un error: ", e);
+    }
+    return doc;
+}
+
+pacienteSchema.statics.deletePaciente = async (correo) => {
+    let deletedUsr;
+    try {
+        deletedUsr = await users.findOneAndDelete({email: ""+correo});
+        console.log(deletedUsr);
+    } catch (e) {
+        console.log("Ocurrio un error: ", e);
+    }
+    return deletedUsr;
+}
+
+pacienteSchema.statics.getPacienteByEmail = async (correo) =>{
+    let paciente;
+    try{
+        console.log( "Correo mandado a getPacienteByEmail " + correo);
+        paciente = await users.findOne({email: ""+correo})
+        console.log(usuario);
+    }catch(err){
+        console.log("Ocurrio un error: ", e);
+    }
+    return usuario;
+}
+pacienteSchema.methods.actualizarPaciente = async function (datos){
+    let hash = bcryptjs.hashSync(datos.password, 8);
+    datos.password = hash;
+    return users.findOneAndUpdate(
+        {_id: this._id},
+        {$set:datos},
+        {new: true,
+         useFindAndModify: false
+        } 
+    )
+}
+
+const pacientes = mongoose.model('db_pacientes', pacienteSchema);
+ 
+module.exports = pacientes;
