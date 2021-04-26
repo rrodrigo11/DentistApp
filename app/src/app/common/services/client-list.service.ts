@@ -10,8 +10,8 @@ export class ClientListService {
 
   constructor(private httpClient:HttpClient) { }
 
-  getUsers():Promise<any>{
-    return this.httpClient.get(environment.apiUrl + 'users').toPromise();
+  getList(type:any):Promise<any>{
+    return this.httpClient.get(environment.apiUrl + type).toPromise();
   }
 
   getUserById(id:number):Promise<any>{

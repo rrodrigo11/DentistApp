@@ -1,0 +1,17 @@
+.row {
+    background: #f8f9fa;
+  }
+  
+  .card-deck {
+    @media (min-width: 768px) {
+      &.three-col {
+        .card {
+          flex-basis: calc(33% - 30px);
+        }
+      }
+    }
+    
+    .card {
+      flex-basis: 100%;
+    }
+  }

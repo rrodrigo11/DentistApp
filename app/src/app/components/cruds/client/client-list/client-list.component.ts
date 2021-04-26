@@ -19,10 +19,10 @@ export class ClientListComponent implements OnInit {
 
   users:any[] =[]
 
-  constructor(private serviceList:ServiceListService, private userService: ClientListService ) {}
+  constructor(private serviceList:ServiceListService, private ListService: ClientListService ) {}
 
   ngOnInit(): void {
-    this.userService.getUsers().then(response =>{
+    this.ListService.getList('users').then(response =>{
       this.users = response;
     });
   }
