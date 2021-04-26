@@ -64,31 +64,31 @@ pacienteSchema.statics.savePacientes = async (newPtt) => {
 }
 
 pacienteSchema.statics.deletePaciente = async (correo) => {
-    let deletedUsr;
+    let deletedPtt;
     try {
-        deletedUsr = await users.findOneAndDelete({email: ""+correo});
-        console.log(deletedUsr);
+        deletedPtt = await pacientes.findOneAndDelete({email: ""+correo});
+        console.log(deletedPtt);
     } catch (e) {
         console.log("Ocurrio un error: ", e);
     }
-    return deletedUsr;
+    return deletedPtt;
 }
 
 pacienteSchema.statics.getPacienteByEmail = async (correo) =>{
     let paciente;
     try{
         console.log( "Correo mandado a getPacienteByEmail " + correo);
-        paciente = await users.findOne({email: ""+correo})
-        console.log(usuario);
+        paciente = await pacientes.findOne({email: ""+correo})
+        console.log(paciente);
     }catch(err){
         console.log("Ocurrio un error: ", e);
     }
-    return usuario;
+    return paciente;
 }
 pacienteSchema.methods.actualizarPaciente = async function (datos){
     let hash = bcryptjs.hashSync(datos.password, 8);
     datos.password = hash;
-    return users.findOneAndUpdate(
+    return pacientes.findOneAndUpdate(
         {_id: this._id},
         {$set:datos},
         {new: true,

@@ -1,29 +1,57 @@
 const express = require('express');
 const router = express.Router();
+const odon = require('../db/db_odon');
 
-router.post('/', async (req,res)=>{ //Ruta para agregar odontograma
-    let {idOdontograma, historialClinico, dientes } = req.body;
-    if(idOdontograma && historialClinico && dientes){
-      let resp = await Sticker.guardarProducto({idOdontograma, historialClinico, dientes});
-      if(resp){
-          res.status(201).send({sticker: resp})
-      }else{
-          res.status(400).send({"error": "No se pudo guardar verifique su conexión"})
-      }     
-    }else {
-      res.status(400).send({error: "Faltan datos"})
-    }
-    console.log(req.body.test)
-  })
+router.route('/')
+    .get(async(req, res)=>{
+        let od = await odon.showOdon();
+        res.send(od);
+    })
+    .post(async(req, res)=>{
+        console.log(req.body);
+        let {historial_clinico_id, descripcion_general} = req.body;
+        let faltan ="";
+
+        faltan+=historial_clinico_id?'':'historial_clinico_id, ';
+        faltan+=descripcion_general?'':'descripcion_general, ';
+        console.log(faltan.length);
+
+        if(faltan.length>0){
+            res.status(400).send({error: "faltan datos."});
+            console.log("falta: ", faltan);
+            return;
+        }
+
+        let newOd = await odon.saveOdon({historial_clinico_id, descripcion_general});
+
+        if(newOd){
+            res.status(201).send({odon: newOd});
+        }else{
+            res.status(400).send({error:"No se pudo guardar. Verifique los datos y su conexión"});
+        }
+    })
   
-router.get('/', async (req,res)=>{ //Ruta para obtener 
-  // let resp = await Odon.obtenerOdon();
-  // if(resp){
-  //   res.status(200).send(resp);
-  // }else{
-  //   res.status(404).send({error:"No existen stickers registrados"})
-  // }
-  console.log("Mostrando Odontograma");
-})
+router.route('/:id')
+    .get(async(req, res) => {
+        let od = await odon.getOdonById(req.params.id);
+        if(od){
+            res.status(200).send(od);
+            return;
+        }
+    })
+    .delete(async(req, res) => {
+        let od = await odon.showOdon();
+        
+        if(!od.find(o => o.id == req.params.id)){
+            res.status(400).send({Error: "No existe el odontograma a eliminar."});
+            return;
+        }
+        let deletedOd = await odon.deleteOdon(req.params.id);
+        if(deletedOd){
+            res.status(200).send({odontograma_eliminado: deletedOd});
+        }else{
+            res.status(400).send({error:"No se pudo eliminar. Verifique los datos y su conexión"});
+        }
+    })
 
 module.exports = router

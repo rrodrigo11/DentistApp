@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const historial = require('../db/db_historial');
 
 /**
  * @swagger
@@ -18,7 +19,34 @@ const router = express.Router();
  */
 router.route('/')
     .get(async(req, res)=>{
-        res.end('records endpoint.');
+        let hst = await historial.showHistorial();
+        res.send(hst);
+    })
+    .post(async(req, res)=>{
+        console.log(req.body);
+        let {dentista_id, paciente_id, date, motivo_de_consulta, enfermedad_actual, estudios, checkbox, observaciones} = req.body;
+        let faltan ="";
+
+        faltan+=dentista_id?'':'dentista_id, ';
+        faltan+=paciente_id?'':'paciente_id, ';
+        faltan+=date?'':'date, ';
+        faltan+=motivo_de_consulta?'':'motivo_de_consulta, ';
+        faltan+=observaciones?'':'observaciones, ';
+        console.log(faltan.length);
+
+        if(faltan.length>0){
+            res.status(400).send({error: "faltan datos."});
+            console.log("falta: ", faltan);
+            return;
+        }
+
+        let newHst = await historial.saveHistorial({dentista_id, paciente_id, date, motivo_de_consulta, enfermedad_actual, estudios, checkbox, observaciones});
+
+        if(newHst){
+            res.status(201).send({historial: newHst});
+        }else{
+            res.status(400).send({error:"No se pudo guardar. Verifique los datos y su conexión"});
+        }
     })
 
 /**
@@ -36,53 +64,27 @@ router.route('/')
  *          200:
  *              description: success call to the endpoint
  */
-router.route('/:email')
+router.route('/:id')
     .get(async(req, res) => {
-        res.statusCode = 200;
-        console.log('Ocurrio una peticion');
-        res.end('records endpoint.');
+        let hst = await historial.getHistorialById(req.params.id);
+        if(hst){
+            res.status(200).send(hst);
+            return;
+        }
     })
     .delete(async(req, res) => {
-        res.statusCode = 200;
-        console.log('Ocurrio una peticion');
-        res.end('delete records endpoint.');
-    })
-    .post(async(req, res)=>{
-        res.statusCode = 200;
-        console.log('Ocurrio una peticion');
-        res.end('create records endpoint.');
-    })
-
-/**
- * @swagger
- * /:
- *  post:
- *      description: get, delete and modify a record
- *      parameters:
- *          - in: query
- *              name: search, delete and modify
- *              description: search, delete and modify a specific record
- *              schema:
- *                  type: string
- *      responses:
- *          200:
- *              description: success call to the endpoint
- */
-router.route('/:email/:id')
-    .get(async(req, res) => {
-        res.statusCode = 200;
-        console.log('Ocurrio una peticion');
-        res.end('record endpoint.');
-    })
-    .delete(async(req, res) => {
-        res.statusCode = 200;
-        console.log('Ocurrio una peticion');
-        res.end('delete record endpoint.');
-    })
-    .put(async(req, res)=>{
-        res.statusCode = 200;
-        console.log('Ocurrio una peticion');
-        res.end('modify record endpoint.');
+        let hst = await historial.showHistorial();
+        
+        if(!hst.find(h => h.id == req.params.id)){
+            res.status(400).send({Error: "No existe el historial a eliminar."});
+            return;
+        }
+        let deletedHst = await historial.deleteHistorial(req.params.id);
+        if(deletedHst){
+            res.status(200).send({historial_eliminado: deletedHst});
+        }else{
+            res.status(400).send({error:"No se pudo eliminar. Verifique los datos y su conexión"});
+        }
     })
 
 module.exports = router;

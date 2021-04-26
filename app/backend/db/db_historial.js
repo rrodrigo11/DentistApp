@@ -30,15 +30,13 @@ let historialSchema = mongoose.Schema({
         },
         detalle: {
             type: String
+        },
+        imagen: {
+            type: String
+        },
+        archivo:{
+            type: String
         }
-        // ,
-        // imagen: {
-        //     type: Image
-        // }
-        // ,
-        // archivo:{
-        //     type: File
-        // }
     }],
     checkbox: [{
         antecedentes: {
@@ -110,8 +108,6 @@ historialSchema.statics.showHistorial = async () => {
 }
 
 historialSchema.statics.saveHistorial = async (newHst) => {
-    let hash = bcryptjs.hashSync(newHst.password, 8);
-    newHst.password = hash;
     let hst = historial(newHst);
     let doc;
     try {
@@ -123,40 +119,28 @@ historialSchema.statics.saveHistorial = async (newHst) => {
     return doc;
 }
 
-historialSchema.statics.deleteUsers = async (correo) => {
+historialSchema.statics.deleteHistorial = async (ID) => {
     let deletedHst;
     try {
-        deletedHst = await historial.findOneAndDelete({email: ""+correo});
+        deletedHst = await historial.findOneAndDelete({id: ""+ID});
         console.log(deletedHst);
     } catch (e) {
         console.log("Ocurrio un error: ", e);
     }
-    return deletedUsr;
+    return deletedHst;
 }
 
-historialSchema.statics.getHistorialByEmail = async (correo) =>{
+historialSchema.statics.getHistorialById = async (ID) =>{
     let hst;
     try{
-        console.log( "Correo mandado a getHistorialByEmail " + correo);
-        hst = await historial.findOne({email: ""+correo})
+        console.log( "Id mandado a getHistorialById " + ID);
+        hst = await historial.findOne({id: ""+ID})
         console.log(hst);
     }catch(err){
         console.log("Ocurrio un error: ", e);
     }
     return hst;
 }
-
-// historialSchema.methods.actualizarHistorial = async function (datos){
-//     let hash = bcryptjs.hashSync(datos.password, 8);
-//     datos.password = hash;
-//     return historial.findOneAndUpdate(
-//         {_id: this._id},
-//         {$set:datos},
-//         {new: true,
-//          useFindAndModify: false
-//         } 
-//     )
-// }
 
 const historial = mongoose.model('db_historial', historialSchema);
  
