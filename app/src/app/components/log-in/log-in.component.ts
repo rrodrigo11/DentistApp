@@ -14,11 +14,13 @@ export class LogInComponent implements OnInit{
   
   ngOnInit():void{
     this.socialAuthService.authState.subscribe(user=>{
+
       if(user){
         console.log('Se inicio sesion:', user);
       }else{
         console.log('No hay sesion');
       }
+      
     })
   }
 

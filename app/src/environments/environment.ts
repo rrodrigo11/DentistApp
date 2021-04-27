@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'https://jsonplaceholder.typicode.com/',
-  clientId: '322250521871-p26jjvfp0i4f0laaqckvuv0ro64st2fb.apps.googleusercontent.com'
+  Google_client: '826168910135-po27o338nmce765cqgjnl3o0oejpmpng.apps.googleusercontent.com'
 };
 
 /*
