@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -46,7 +47,9 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    SocialLoginModule
+    SocialLoginModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

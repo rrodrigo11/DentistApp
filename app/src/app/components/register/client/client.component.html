@@ -10,41 +10,34 @@
                         <p>This is the client registration form</p>
                     </div>
                 </div>
-            </div>
+            </div> 
             <div class="col-md-8 py-5 border">
                 <h4 class="pb-4">Please fill with the client details</h4>
-                <form>
+                <form [formGroup]="form" (submit)="register()">
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                          <input id="Full Name" name="Full Name" placeholder="Full Name" class="form-control" type="text">
+                          <input id="Full Name" name="nombre" formControlName="nombre" placeholder="Full Name" class="form-control" type="text">
                         </div>
                         <div class="form-group col-md-6">
-                          <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                          <input type="email" class="form-control" name="email" formControlName="email"  id="inputEmail4" placeholder="Email">
                         </div>
                       </div>
 
                     <div class="form-row">
 
                         <div class="form-group col-md-6">
-                            <input id="Mobile No." name="Mobile No." placeholder="Mobile No." class="form-control" required="required" type="text">
+                            <input id="Mobile No." name="phone" formControlName="phone"  placeholder="Mobile No." class="form-control" type="text">
                         </div>
-                        <div class="form-group col-md-6">
-                            <!-- https://bootstrapious.com/p/bootstrap-image-upload -->
-                            <div class="input-group-append">
-                                <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> 
-                                    <i class="fa fa-cloud-upload mr-2 text-muted"></i>
-                                    <small class="text-uppercase font-weight-bold text-muted">Choose Image</small>
-                                </label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">Upload</span>
                             </div>
-                                  <!-- <select id="inputState" class="form-control">
-                                    <option selected>Choose ...</option>
-                                    <option> New Buyer</option>
-                                    <option> Auction</option>
-                                    <option> Complaint</option>
-                                    <option> Feedback</option>
-                                  </select> -->
-                        </div>
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" name="photo" formControlName="photo" id="inputGroupFile01">
+                              <label class="custom-file-label" for="inputGroupFile01">Choose image</label>
+                            </div>
+                          </div>
 
                         <!-- <div class="form-group col-md-12">
                                   <textarea id="comment" name="comment" cols="40" rows="5" class="form-control"></textarea>
@@ -54,22 +47,24 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <input id="dentistno" name="Dentist No." placeholder="Dentist No." class="form-control" required="required" type="number">
+                            <input id="dentistno" name="dentist" formControlName="dentist" placeholder="Dentist No." class="form-control" type="number">
                         </div>
                         <div class="form-group col-md-6">
-                            <input id="addres" name="Addres" placeholder="Addres" class="form-control" required="required" type="text">
+                            <input id="addres" name="addres" formControlName="address" placeholder="Addres" class="form-control" type="text">
                         </div>
                         <div class="form-group col-md-6">
-                            <input id="height" name="Height" placeholder="Height" class="form-control" required="required" type="text">
+                            <input id="height" name="height" formControlName="height" placeholder="Height" class="form-control" type="text">
                         </div>
                         <div class="form-group col-md-6">
-                            <input id="weight" name="Weight" placeholder="Weight" class="form-control" required="required" type="text">
+                            <input id="weight" name="weight" formControlName="weight" placeholder="Weight" class="form-control" type="text">
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <button type="button" class="btn btn-danger">Submit</button>
+                        <a routerLink="/client/list" class="py-1 px-2">Volver a lista de clientes</a>
                     </div>
+                    <p>Formulario valido? {{form.valid}}</p>
                 </form>
             </div>
         </div>
