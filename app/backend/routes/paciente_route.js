@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const users = require('../db/db_users');
 const pacientes = require('../db/db_pacientes');
-const bcryptjs = require('bcryptjs');
+const auth = require('../middlewares/auth');
 
 
 router.route('/')
-    .get(async(req, res)=>{
+    .get(auth.authToken, async(req, res)=>{
         let ptt = await pacientes.showPacientes();
         res.send(ptt);
     })
@@ -76,7 +75,7 @@ router.route('/:email')
             res.status(400).send({error:"No se pudo eliminar. Verifique los datos y su conexión"});
         }
     })
-    .put(async(req, res)=>{
+    .put(auth.authToken, async(req, res)=>{
         if(req.params.email == req.body.email){
             let doc;
             try{
@@ -92,7 +91,7 @@ router.route('/:email')
             res.status(400).send({error:"No se debe de cambiar el correo."})
         }
     })
-    .get( async(req, res)=>{
+    .get(auth.authToken, async(req, res)=>{
         let ptt = await pacientes.getPacienteByEmail(req.params.email);
         if(ptt){
             res.status(200).send(ptt);

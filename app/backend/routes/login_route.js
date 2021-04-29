@@ -1,8 +1,7 @@
-const express = require('express');
-const router = express.Router();
-// const bcryptjs = require('bcryptjs');
-// const users = require('../DB/users');
-// const jwt = require('jsonwebtoken');
+const router = require("express").Router();
+const bcryptjs = require('bcryptjs');
+const users = require('../db/db_users');
+const jwt = require('jsonwebtoken');
 
 /**
  * @swagger
@@ -19,31 +18,29 @@ const router = express.Router();
  *          200:
  *              description: success call to the endpoint
  */
-
-router.route('/')
+ 
+ router.route('/')
     .post(async (req, res)=>{
-        let {email, password} = req.body;  
+        let {email, password} = req.body; 
+        console.log(password+""); 
         let resp = ""; 
-        resp+=email? '' : ' correo,';
+        resp+=email? '' : ' email,';
         resp+=password? '' : ' password,';
         if(resp.length>0){
             res.status(400).send({error: "faltan "+resp})
-
+ 
         }else{
-            // let user = await users.getUserByEmail(email);
-            // if(bcryptjs.compareSync(password, user.password)){
-            //     console.log(user.email)
-            //     let token = jwt.sign({correo:user.email}, "clave de tokens", {expiresIn: '1h'});
-            //     res.send({"token": token, "rol": user.rol});
-            // }else{
-            //     res.status(401).send({error:"verificar password"})
-            // }
+            let user = await users.getUserByEmail(email);
+            if(bcryptjs.compare(password, user.password)){
+                console.log(user.email)
+                let token = jwt.sign({email: user.email}, "Token Key", {expiresIn: '1h'});
+                res.send({"token": token});
+            }else{
+                res.status(401).send({error:"Wrong password"})
+            }
 
-           // user.token = user.token? user.token:  shortid.generate()+'-'+user.id; 
-            //res.send({token: user.token})
-            console.log(resp);
         }
-
+ 
     })
-
+ 
 module.exports = router

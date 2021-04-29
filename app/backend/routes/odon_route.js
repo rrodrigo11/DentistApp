@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const odon = require('../db/db_odon');
+const auth = require('../middlewares/auth');
 
 router.route('/')
-    .get(async(req, res)=>{
+    .get(auth.authToken, async(req, res)=>{
         let od = await odon.showOdon();
         res.send(od);
     })
@@ -32,8 +33,9 @@ router.route('/')
     })
   
 router.route('/:id')
-    .get(async(req, res) => {
+    .get(auth.authToken, async(req, res) => {
         let od = await odon.getOdonById(req.params.id);
+        console.log(req.params.id);
         if(od){
             res.status(200).send(od);
             return;

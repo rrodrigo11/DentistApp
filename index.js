@@ -1,18 +1,16 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 
 dotenv.config();
 
-// const {historialRouter,
-//         loginRouter,
-//         odonRouter,
-//         userRouter} = require('./routes');
 const historialRouter = require('./app/backend/routes/historial_route');
 const loginRouter = require('./app/backend/routes/login_route');
 const odonRouter = require('./app/backend/routes/odon_route');
 const userRouter = require('./app/backend/routes/user_route');
 const pacienteRouter = require('./app/backend/routes/paciente_route');
-//const mongodb = require('./app/backend/db/db_connect');
+const connectedRouter = require('./app/backend/routes/connected_route');
+const googleRouter = require('./app/backend/routes/loginGoogle_route');
 
 //const cors = require('cors');
 const app = express();
@@ -35,6 +33,7 @@ const port = process.env.PORT || 3000;
 //const swaggerDoc = swaggerJsDoc();
 /*MIDDLEWARES*/
 app.use(express.json());
+app.use(cookieParser());
 //app.use(cors());
 //app.use(express.static(__dirname+'/public'));
 
@@ -45,6 +44,9 @@ app.use('/user_route', userRouter);
 app.use('/paciente_route', pacienteRouter);
 app.use('/login_route', loginRouter);
 app.use('/odon_route', odonRouter);
+app.use('/connected_route', connectedRouter);
+app.use('/loginGoogle_route', googleRouter);
+
 
 app.get('/', (req, res) => {
         res.end('Api works!');

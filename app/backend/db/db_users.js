@@ -60,15 +60,15 @@ userSchema.statics.deleteUsers = async (correo) => {
 }
 
 userSchema.statics.getUserByEmail = async (correo) =>{
-    let usuario;
+    let usr;
     try{
         console.log( "Correo mandado a getUserByEmail " + correo);
-        usuario = await users.findOne({email: ""+correo})
-        console.log(usuario);
+        usr = await users.findOne({email: ""+correo})
+        console.log(usr);
     }catch(err){
         console.log("Ocurrio un error: ", e);
     }
-    return usuario;
+    return usr;
 }
 userSchema.methods.actualizarUsuario = async function (datos){
     let hash = bcryptjs.hashSync(datos.password, 8);

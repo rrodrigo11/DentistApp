@@ -21,7 +21,7 @@ let historialSchema = mongoose.Schema({
         type: String,
         required: false
     },
-    estudios: [{
+    estudios: {
         nombre_de_estudio: {
             type: String
         },
@@ -32,13 +32,15 @@ let historialSchema = mongoose.Schema({
             type: String
         },
         imagen: {
-            type: String
+            data: Buffer,
+            contentType: String
         },
         archivo:{
-            type: String
+            data: Buffer,
+            contentType: String
         }
-    }],
-    checkbox: [{
+    },
+    historial_clinico: {
         antecedentes: {
             type: Boolean,
             default: false
@@ -91,7 +93,7 @@ let historialSchema = mongoose.Schema({
             type: Boolean,
             default: false
         }
-    }],
+    },
     Observaciones: {
         type: String,
         required: false

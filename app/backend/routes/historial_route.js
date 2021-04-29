@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const historial = require('../db/db_historial');
+const auth = require('../middlewares/auth');
 
 /**
  * @swagger
@@ -18,7 +19,7 @@ const historial = require('../db/db_historial');
  *              description: success call to the endpoint
  */
 router.route('/')
-    .get(async(req, res)=>{
+    .get(auth.authToken, async(req, res)=>{
         let hst = await historial.showHistorial();
         res.send(hst);
     })
@@ -65,7 +66,7 @@ router.route('/')
  *              description: success call to the endpoint
  */
 router.route('/:id')
-    .get(async(req, res) => {
+    .get(auth.authToken, async(req, res) => {
         let hst = await historial.getHistorialById(req.params.id);
         if(hst){
             res.status(200).send(hst);

@@ -47,7 +47,7 @@ odonSchema.statics.getOdonById = async (ID) =>{
     let od;
     try{
         console.log( "Id mandado a getOdonById " + ID);
-        od = await odon.findOne({id: ""+ID})
+        od = await odon.findOne({_id: ""+ID})
         console.log(od);
     }catch(err){
         console.log("Ocurrio un error: ", e);
