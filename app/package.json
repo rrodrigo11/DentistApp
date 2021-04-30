@@ -25,6 +25,7 @@
     "angularx-social-login": "^3.5.5",
     "bootstrap": "^4.5.0",
     "google-auth-library": "^7.0.4",
+    "ng-sidebar": "^9.4.2",
     "rxjs": "~6.6.0",
     "socket.io": "^4.0.1",
     "tslib": "^2.0.0",

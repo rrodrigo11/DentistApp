@@ -21,6 +21,7 @@ import { OdontogramInfoComponent } from './components/cruds/odontogram/odontogra
 import { OdontogramListComponent } from './components/cruds/odontogram/odontogram-list/odontogram-list.component';
 import { DentistListComponent } from './components/cruds/dentist/dentist-list/dentist-list.component';
 import { environment } from 'src/environments/environment';
+import { HeaderComponent } from './components/layouts/header/header.component';
 
 
 @NgModule({
@@ -39,8 +40,9 @@ import { environment } from 'src/environments/environment';
     OdontogramRegisterComponent,
     OdontogramInfoComponent,
     OdontogramListComponent,
-    DentistListComponent
-  ],
+    DentistListComponent,
+    HeaderComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

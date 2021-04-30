@@ -30,18 +30,17 @@ const routes: Routes = [
   },
   {path : 'client' , children:
     [
-      {path: '' , component: ClientInfoComponent},
       {path : 'list' , component: ClientListComponent},
+      {path: ':id' , component: ClientInfoComponent},
       {path : 'register' , component: ClientRegisterComponent}
 
     ]
   },
   {path : 'clinic' , children:
     [
-      {path: '' , component: ClinicHistoryInfoComponent},
-      {path : 'list' , component: ClinicHistoryListComponent},
+      {path : 'list:id' , component: ClinicHistoryListComponent},
+      {path: ':id' , component: ClinicHistoryInfoComponent},
       {path : 'register' , component: ClinicHistoryRegisterComponent}
-
     ]
   },
   {path : 'odontogram' , children:

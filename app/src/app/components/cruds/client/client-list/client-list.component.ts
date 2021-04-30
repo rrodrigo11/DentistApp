@@ -26,7 +26,11 @@ export class ClientListComponent implements OnInit {
       this.users = response;
     });
   }
+
   myFunction()
   {}
-  
+
+  deleteClient(){
+
+  }
 }
