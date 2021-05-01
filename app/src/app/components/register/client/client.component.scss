@@ -1,1 +1,4 @@
 img {width:100%;}
+input.ng-dirty.ng-invalid{
+    border: solid 3px darkred;
+}

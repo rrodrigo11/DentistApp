@@ -1,12 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
 
+interface Credentials{
+  username:string ;
+  password:string ;
+
+}
+
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss']
 })
 export class LogInComponent implements OnInit{
+
+
+  credentials:Credentials = {
+    username: "test",
+    password: "12345"
+  };
 
   loggedIn:boolean = false;
 
@@ -22,6 +34,10 @@ export class LogInComponent implements OnInit{
       }
       
     })
+  }
+
+  hacerLogin(){
+    console.log('Ya hice click en el boton', this.credentials);
   }
 
   googleLogin(){
