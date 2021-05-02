@@ -22,9 +22,8 @@ let pacienteSchema = mongoose.Schema({
     image: {
         type: String
     },
-    dentista: {
-        type: String,
-        required: true
+    idDentista: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'db_users'
     },
     address: {
         type: String,

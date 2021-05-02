@@ -2,12 +2,10 @@ const mongoose = require('./db_connect');
 
 let historialSchema = mongoose.Schema({
     dentista_id: {
-        type: Number,
-        required: true
+        type: mongoose.Schema.Types.ObjectId, ref: 'db_users',
     },
     paciente_id: {
-        type: Number,
-        required: true
+        type: mongoose.Schema.Types.ObjectId, ref: 'db_pacientes',
     },
     date: {
         type: Date,

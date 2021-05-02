@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const users = require('../db/db_users');
+const patients = require('../db/db_pacientes');
 const auth = require('../middlewares/auth');
-
-const bcryptjs = require('bcryptjs');
 
 /**
  * @swagger
@@ -113,6 +112,75 @@ router.route('/:email')
             return;
         }
     })
+
+router.route('/addPaciente/:email')
+    .get(async(req, res) => {
+        let usr = await users.findOne({email: req.params.email});
+        let arrUsr = [];
+        console.log(usr);
+
+        for (let p of usr.pacientes){
+          console.log(p.pacientes)
+          let ptt = await patients.findOne({_id: p.idPacientes})
+          console.log(ptt)
+	      arrUsr.push({idPaciente: ptt, paciente: p.paciente})
+	    }
+        console.log(arrUsr)
+        if(arrUsr.length > 0){
+            res.status(200).send(arrUsr);
+        }else{
+            res.status(404).send({error:"No hay pacientes registrados"});
+        }
+    })
+    .post(async(req, res)=>{
+        let usr = await users.findOne({email: req.params.email});
+        let idPtt = req.body._id;
+        console.log(usr);
+        
+        try{
+            if(usr){
+                ptt = usr.pacientes.find(p => p.idPaciente == idPtt);
+                if(ptt){
+                    res.status(400).send({error:"El paciente ya ha sido registrado previamente"})
+                }else{
+                    await usr.savePacientes(idPtt);
+                    res.status(200).send(usr);
+                }
+            }else{
+
+                console.log("No se encontro el usuario")
+            }
+        }catch(err){
+            console.log(err);
+            res.status(404).send({error: "Database Failed"});
+        }
+    })
+    .put(  async (req, res) =>{
+        let idPtt = req.body.idPaciente;
+        let pttName = req.body.paciente;
+        console.log(idPtt);
+        console.log(pttName);
+        let usr = await users.findOne({email: req.params.email});
+        console.log(usr);
+        try{
+            if(usr){
+                ptt = usr.pacientes.find(p => p.idPaciente == idPtt);
+                console.log(ptt);
+                if(ptt){
+                    await usr.actualizarPacientes(idPtt, pttName);
+                    res.send(usr);
+                }else{
+                    res.status(404).send({error: "No se encontro el paciente"});
+                }
+            }else{
+                console.log("No se encontro al usuario");
+            }
+        }catch(err){
+            console.log(err);
+            res.status(404).send({error: "Database Failed."});
+        }
+    })
+    
 
 
 module.exports = router;

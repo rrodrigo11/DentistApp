@@ -65,7 +65,7 @@ router.route('/')
  *          200:
  *              description: success call to the endpoint
  */
-router.route('/:id')
+router.route('/:_id')
     .get(auth.authToken, async(req, res) => {
         let hst = await historial.getHistorialById(req.params.id);
         if(hst){

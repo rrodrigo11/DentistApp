@@ -2,6 +2,7 @@ const mongoose = require('./db_connect');
 const bcryptjs = require('bcryptjs');
 const { profileEnd } = require('console');
 const { Collection } = require('mongoose');
+const patients = require('./db_pacientes');
 
 let userSchema = mongoose.Schema({
     name: {
@@ -20,9 +21,10 @@ let userSchema = mongoose.Schema({
     image: {
         type: String
     },
-    pacientes: {
-        type: Array
-    }
+    pacientes: [{
+        idPaciente: {type: mongoose.Schema.Types.ObjectId, ref: 'db_pacientes'},
+        paciente: {type: String}
+    }]
 });
 
 userSchema.statics.showUsers = async () => {
@@ -79,6 +81,28 @@ userSchema.methods.actualizarUsuario = async function (datos){
         {new: true,
          useFindAndModify: false
         } 
+    )
+}
+
+userSchema.methods.savePacientes = async function (idPtt){
+    let pttName = await patients.findOne({_id: idPtt});
+    let ptt = {idPaciente: idPtt, paciente: pttName.name};
+    return users.findOneAndUpdate(
+        {_id:this._id},
+        {$push: {pacientes: ptt}},
+        {new:true,
+        useFindAndModify: false}
+    )
+}
+
+userSchema.methods.actualizarPacientes = async function (idPtt, pttName){
+    let ptt = {idPaciente: idPtt, paciente: pttName.name};
+    return users.findOneAndUpdate(
+        {_id:this._id},
+        {$set:{pacientes: ptt}},
+        {new: true,
+         useFindAndModify:false
+        }
     )
 }
 

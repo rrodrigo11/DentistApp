@@ -32,7 +32,7 @@ router.route('/')
         }
     })
   
-router.route('/:id')
+router.route('/:_id')
     .get(auth.authToken, async(req, res) => {
         let od = await odon.getOdonById(req.params.id);
         console.log(req.params.id);
