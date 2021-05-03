@@ -23,7 +23,7 @@ let userSchema = mongoose.Schema({
     },
     pacientes: [{
         idPaciente: {type: mongoose.Schema.Types.ObjectId, ref: 'db_pacientes'},
-        paciente: {type: String}
+        paciente: {type:  mongoose.Schema.Types.String, ref: 'db_pacientes'}
     }]
 });
 
@@ -98,11 +98,24 @@ userSchema.methods.savePacientes = async function (idPtt){
 userSchema.methods.actualizarPacientes = async function (idPtt, pttName){
     let ptt = {idPaciente: idPtt, paciente: pttName.name};
     return users.findOneAndUpdate(
+        {_id:this._id, "pacientes.idPaciente": idPtt},
+        {$set:
+            {
+                "pacientes.$.paciente": pttName
+            }
+        },
+        {useFindAndModify: false}
+    )
+}
+
+userSchema.methods.deletePacientes = async function (idPtt){
+    let pttName = await patients.findOne({_id: idPtt});
+    let ptt = {idPaciente: idPtt, paciente: pttName.name};
+    return users.findOneAndUpdate(
         {_id:this._id},
-        {$set:{pacientes: ptt}},
-        {new: true,
-         useFindAndModify:false
-        }
+        {$pull: {pacientes: ptt}},
+        {new:true,
+        useFindAndModify: false}
     )
 }
 

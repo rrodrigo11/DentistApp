@@ -45,7 +45,7 @@ router.route('/')
 
         for (let i = 0; i < usr.length; i++) {
             if(usr[i].email == email){
-                res.status(400).send({Error: "Ya existe un usuario con esa información."});
+                res.status(400).send({Error: "Ya existe un usuario con ese correo."});
                 return;
             }  
         }
@@ -74,8 +74,8 @@ router.route('/')
  *          200:
  *              description: success call to the endpoint
  */
-router.route('/:email')
-    .delete(async(req, res) => {
+router.route('/:email')//recibe como parámetro email del dentista
+    .delete(auth.authToken, async(req, res) => {
         let usr = await users.showUsers();
         
         if(!usr.find(u => u.email == req.params.email)){
@@ -113,8 +113,8 @@ router.route('/:email')
         }
     })
 
-router.route('/addPaciente/:email')
-    .get(async(req, res) => {
+router.route('/addPaciente/:email')//recibe como parámetro email del dentista
+    .get(auth.authToken, async(req, res) => {
         let usr = await users.findOne({email: req.params.email});
         let arrUsr = [];
         console.log(usr);
@@ -132,10 +132,10 @@ router.route('/addPaciente/:email')
             res.status(404).send({error:"No hay pacientes registrados"});
         }
     })
-    .post(async(req, res)=>{
+    .post(auth.authToken, async(req, res)=>{
         let usr = await users.findOne({email: req.params.email});
         let idPtt = req.body._id;
-        console.log(usr);
+        console.log(idPtt);
         
         try{
             if(usr){
@@ -155,8 +155,8 @@ router.route('/addPaciente/:email')
             res.status(404).send({error: "Database Failed"});
         }
     })
-    .put(  async (req, res) =>{
-        let idPtt = req.body.idPaciente;
+    .put(auth.authToken, async (req, res) =>{
+        let idPtt = req.body._id;
         let pttName = req.body.paciente;
         console.log(idPtt);
         console.log(pttName);
@@ -180,7 +180,29 @@ router.route('/addPaciente/:email')
             res.status(404).send({error: "Database Failed."});
         }
     })
-    
+    .delete(auth.authToken, async (req, res) => {
+        let idPtt = req.body._id;
+        let usr = await users.findOne({email: req.params.email});
+        try {
+            if (usr) {
+                ptt = usr.pacientes.find(p => p.idPaciente == idPtt);
+                console.log(ptt);
+                if (ptt) {
+                    await usr.deletePacientes(idPtt);
+                    res.send(ptt);
+                } else {
+                    res.status(404).send({error: "No se encontro el paciente"});
+                }
+            } else {
+                console.log('No se encontro el usuario');
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(404).send({error: "Database Failed."});
+        }
+    })
 
+router.route('/addHistorial/:email')//recibe como parámetro email del dentista
+    .get()
 
 module.exports = router;

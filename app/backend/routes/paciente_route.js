@@ -9,16 +9,18 @@ router.route('/')
         let ptt = await pacientes.showPacientes();
         res.send(ptt);
     })
+
+router.route('/:_id')//recibe como parámetro _id del dentista
     .post(async(req, res)=>{
         console.log(req.body);
-        let {name, email, password, phoneNumber, image, dentista, address, weight, height} = req.body;
+        let idDentista = req.params._id;
+        let {name, email, password, phoneNumber, image, address, weight, height} = req.body;
         let faltan ="";
 
         faltan+=name?'':'name, ';
         faltan+=email?'':'email, ';
         faltan+=password?'':'password, ';
         faltan+=phoneNumber?'':'phoneNumber, ';
-        faltan+=dentista?'':'dentista, ';
         console.log(faltan.length);
 
         if(faltan.length>0){
@@ -36,7 +38,7 @@ router.route('/')
             }  
         }
 
-        let newPtt = await pacientes.savePacientes({name, email, password, phoneNumber, image, dentista, address, weight, height});
+        let newPtt = await pacientes.savePacientes({name, email, password, phoneNumber, image, idDentista, address, weight, height});
 
         if(newPtt){
             res.status(201).send({usuario: newPtt});
@@ -61,7 +63,7 @@ router.route('/')
  *              description: success call to the endpoint
  */
 router.route('/:email')
-    .delete(async(req, res) => {
+    .delete(auth.authToken, async(req, res) => {
         let ptt = await pacientes.showPacientes();
         
         if(!ptt.find(p => p.email == req.params.email)){
