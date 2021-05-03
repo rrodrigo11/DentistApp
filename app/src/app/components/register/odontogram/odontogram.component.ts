@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OdontogramRegisterComponent implements OnInit {
 
+  imageSrc = '../../../assets/odon.jpeg'  
+  imageAlt = 'iPhone'
+
   constructor() { }
 
   ngOnInit(): void {

@@ -1,0 +1,38 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+.input-image {
+    background: url(../../../../assets/img/odon.jpeg);
+    min-height: 380px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding-top: 50px;
+} 
+.griddy{
+    display: grid;
+    grid-auto-flow: column;
+    width:100%;
+} 
+
+.btn {
+    background-color: #565258;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+    position: absolute;
+}
+input.transparent-input{
+    background-color:rgba(0,0,0,0) !important;
+    border:none !important;
+    -ms-transform: rotate(-50deg);
+    transform: rotate(-50deg);
+ }
+
+.btn:hover {
+    opacity: 1;
+}
