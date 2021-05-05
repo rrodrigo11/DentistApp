@@ -4,19 +4,12 @@
 @import "bootstrap/scss/utilities";
 
 .input-image {
-    background: url(../../../../assets/img/odon.jpeg);
     min-height: 380px;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
     padding-top: 50px;
 } 
-.griddy{
-    display: grid;
-    grid-auto-flow: column;
-    width:100%;
-} 
-
 .btn {
     background-color: #565258;
     color: white;
@@ -35,4 +28,7 @@ input.transparent-input{
 
 .btn:hover {
     opacity: 1;
+}
+.area1{
+    box-sizing:border-box;
 }
