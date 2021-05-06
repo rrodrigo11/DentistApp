@@ -1,4 +1,4 @@
-<body>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <img src="../../../../assets/img/odon.jpeg"
 class=" mx-auto d-block " usemap=#imgmap>
 <map name="imgmap">
@@ -45,6 +45,7 @@ class=" mx-auto d-block " usemap=#imgmap>
           onmouseout=""
           aria-controls="collapseExample"
           coords="400, 37, 450, 215"/>
+
     <area  shape="rect" href="javascript:; " type="button" (click)="clickarea('21')"
           onmouseover="" 
           onmouseout=""
@@ -88,82 +89,83 @@ class=" mx-auto d-block " usemap=#imgmap>
        
           
 
-    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('18')"
+    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('48')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
           coords="45, 285, 91, 423"/>
-    <area  shape="rect" href="javascript:; " type="button" (click)="clickarea('19')"
+    <area  shape="rect" href="javascript:; " type="button" (click)="clickarea('47')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
           coords="98, 285, 147, 435"/>
-    <area  shape="rect" href="javascript:; " type="button" (click)="clickarea('20')"
+    <area  shape="rect" href="javascript:; " type="button" (click)="clickarea('46')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
           coords="157, 285, 210, 445"/>
-    <area  shape="rect" href="javascript:; " type="button" (click)="clickarea('20')"
+    <area  shape="rect" href="javascript:; " type="button" (click)="clickarea('45')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
           coords="225, 285, 258, 445"/>
-    <area  shape="rect" href="javascript:; " type="button" (click)="clickarea('20')"
+    <area  shape="rect" href="javascript:; " type="button" (click)="clickarea('44')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
           coords="265, 285, 305, 445"/>
-    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('20')"
+    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('43')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
           coords="310, 285, 350, 450"/>
-    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('20')"
+    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('42')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
           coords="357, 285, 397, 450"/>
-    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('20')"
+    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('41')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
           coords="410, 285, 446, 450"/>
-    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('20')"
+          
+    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('31')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
           coords="474, 285, 513, 450"/>
-    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('20')"
+    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('32')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
           coords="522, 285, 563, 450"/>
-    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('20')"
+    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('33')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
           coords="570, 285, 610, 450"/>
-    <area  shape="rect" href="javascript:; " type="button" (click)="clickarea('20')"
+    <area  shape="rect" href="javascript:; " type="button" (click)="clickarea('34')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
           coords="617, 285, 656, 450"/>
-    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('20')"
+    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('35')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
           coords="661, 285, 700, 450"/>
-    <area  shape="rect" href="javascript:; " type="button" (click)="clickarea('20')"
+    <area  shape="rect" href="javascript:; " type="button" (click)="clickarea('36')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
           coords="707, 285, 764, 446"/>
-    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('20')"
+    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('37')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
           coords="772, 285, 825, 446"/>
-    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('20')"
+    <area shape="rect" href="javascript:; " type="button" (click)="clickarea('38')"
           onmouseover="" 
           onmouseout=""
           aria-controls="collapseExample"
@@ -173,15 +175,29 @@ class=" mx-auto d-block " usemap=#imgmap>
           
 </map>                  
     <div class="container text-center text-inline">                          
-        <h3> Diente = </h3>
-        <div name="dienteshow"  ngDefaultControl  [(innerHTML)]="dienteview"> </div>
+        <h3 class="titu"> Diente = </h3>
+        <div name="dienteshow"  class="titu" ngDefaultControl  [(innerHTML)]="dienteview"> </div>
     </div>  
 
-<div class="container">
+<!-- <div class="container">
     <div class="row">
         <textarea name="ans" [(ngModel)]="dientework" class="form-control w-50 mx-auto" id="textAreaExample1" rows="4"></textarea>
-        <button type="submit" class="btn btn-primary">Primary</button>
+        <button type="submit" class="btn btn-primary bg-blue">Primary</button>
     </div>
+</div> -->
+<div class="container">
+            <div class="form-horizontal">
+                  <div class="form-group">
+                        <div class="col-xs-2">
+                        </div>
+                        <div class="col-xs-8">
+                              <textarea class="form-control input-sm" rows="4" style="resize: none" [(ngModel)]="dientework" id="serviceNowStr"  placeholder="Trabajo en diente"></textarea>
+                        </div>
+                        <div class="col-xs-2">
+                              <button class="btn uk-button btn-block btn-default " (click)="savetooth()">Guardar Datos</button>
+                              <button class="btn uk-button btn-block btn-primary " ng-click="openServiceNowPopup(formData_EventDetails)"> Finalizar </button>
+                        </div>
+                  </div>
+            </div>
 </div>
 
-</body>

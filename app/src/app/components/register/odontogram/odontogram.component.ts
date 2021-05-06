@@ -22,8 +22,33 @@ export class OdontogramRegisterComponent implements OnInit {
     "13":"",
     "12":"",
     "11":"",
+
     "21":"",
- 
+    "22":"",
+    "23":"",
+    "24":"",
+    "25":"",
+    "26":"",
+    "27":"",
+    "28":"",
+
+    "48":"",
+    "47":"",
+    "46":"",
+    "45":"",
+    "44":"",
+    "43":"",
+    "42":"",
+    "41":"",
+
+    "31":"",
+    "32":"",
+    "33":"",
+    "34":"",
+    "35":"",
+    "36":"",
+    "37":"",
+    "38":"",
   }
   vistas:boolean[]= [true,false,false,false,false,false,false,false]
   constructor() { }
@@ -32,15 +57,16 @@ export class OdontogramRegisterComponent implements OnInit {
   ngOnInit(): void {
   }
   clickarea(diente:string){
-    this.dientework =  this.dientes[diente]
     this.dientesview = diente
+    this.dientework = this.dientes[this.dientesview]
     this.dienteview =  `<h1>`+diente+`</h1>`
+    console.log( this.dientes[this.dientesview]);
+    console.log( this.dientes);
+  }
+  savetooth(){
     this.dientes[this.dientesview] = this.dientework;
     console.log( this.dientes[this.dientesview]);
-    this.dientes[+diente]
     console.log( this.dientes);
-
-
   }
 
 }

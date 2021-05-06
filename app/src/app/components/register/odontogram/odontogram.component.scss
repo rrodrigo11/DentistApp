@@ -10,25 +10,15 @@
     background-size: contain;
     padding-top: 50px;
 } 
-.btn {
-    background-color: #565258;
-    color: white;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    opacity: 0.9;
-    position: absolute;
-}
-input.transparent-input{
-    background-color:rgba(0,0,0,0) !important;
-    border:none !important;
-    -ms-transform: rotate(-50deg);
-    transform: rotate(-50deg);
- }
+
 
 .btn:hover {
     opacity: 1;
 }
-.area1{
-    box-sizing:border-box;
+.btn {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.titu{
+    display:inline
 }
