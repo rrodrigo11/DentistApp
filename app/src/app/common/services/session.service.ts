@@ -20,8 +20,7 @@ export class SessionService {
   }
 
   googleLogin(idToken:string):Promise<any> {
-    const url = `${environment.apiUrl}auth/google`;//Aqui es cambiar por login de backend
+    const url = `${environment.apiUrl}google_route`;//Aqui es cambiar por login de backend
     return this.httpClient.post(url, { idToken: idToken }).toPromise();
   }
-
 }

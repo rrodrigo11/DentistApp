@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://jsonplaceholder.typicode.com/',
+  apiUrl: 'http://localhost:3000/',
   Google_client: '826168910135-po27o338nmce765cqgjnl3o0oejpmpng.apps.googleusercontent.com'
 };
 

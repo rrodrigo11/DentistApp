@@ -1,7 +1,5 @@
 import { Component, OnInit , Input, Output, EventEmitter} from '@angular/core';
 
-import { ClientListService } from 'src/app/common/services/client-list.service';
-import { ServiceListService } from 'src/app/common/services/service-list.service';
 
 interface User{
   id:number,
@@ -19,12 +17,10 @@ export class ClinicHistoryListComponent implements OnInit {
 
   users:any[] =[]
 
-  constructor(private serviceList:ServiceListService, private ListService: ClientListService ) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.ListService.getList('users').then(response =>{
-      this.users = response;
-    });
+    
   }
   myFunction()
   {}

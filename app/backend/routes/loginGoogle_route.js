@@ -1,25 +1,47 @@
 const router = require("express").Router();
 const {OAuth2Client} = require('google-auth-library');
-const CLIENT_ID = '776524041115-1ocj7eqsokjnm0li3lskh2sq5sd2nihq.apps.googleusercontent.com';
-const client = new OAuth2Client(CLIENT_ID);
+const users = require("../db/db_users");
+
+const googleClient = new OAuth2Client(process.env.Google_client);
 
 router.route('/')
-    .post(async (req, res)=>{
-        let token = req.body.token;
-        async function verify() {
-            const ticket = await client.verifyIdToken({
-                idToken: token,
-                audience: CLIENT_ID,
-            });
-            const payload = ticket.getPayload();
-            const userid = payload['sub'];
-          }
-          verify()
-          .then(()=>{
-            res.cookie("token", token).send('success');
-          }).
-          catch(console.error);
-})
+    .post(async function (req, res){
+       googleClient.verifyIdToken({
+           idToken:req.body.idToken
+       }).then(googleResponse=>{
+            const responseData = googleResponse.getPayload();
+            console.log('Response payload:' , responseData);
+            const email = responseData.email;
+            users.getUserByEmail(email)
+            .then(response=>{
+                if(response){
+                    console.log('Ya existe usuario', response);
+                    if(!response.googleId){
+                        console.log('Does not have google ID');
+                        
+                    }
+                }else{
+                    console.log('Crear usuario y la respuesta');
+                    let body = {
+                        name: responseData.name,
+                        email: responseData.email,
+                        googleId: responseData.sub,
+                        picture: responseData.picture
+                    };
+                    console.log(body);
+                    users.saveUsers(body).then(response=>{
+                        console.log('Se creo usuario', response);
+                        //Aqui se deberia crear token
+                    });
+                }
+            }).catch(err=>{
+                res.status(400).send();
+            });  
+       }).catch(err=>{
+           console.log('Error:', err);
+           res.status(400).send();
+       });
+    })
 
 router.route('/logout')
     .get(async (req, res)=>{

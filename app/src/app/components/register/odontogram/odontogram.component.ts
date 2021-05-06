@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./odontogram.component.scss']
 })
 export class OdontogramRegisterComponent implements OnInit {
+  
 
   imageSrc = '../../../assets/odon.jpeg'  
   imageAlt = 'iPhone'
@@ -55,6 +56,7 @@ export class OdontogramRegisterComponent implements OnInit {
   isVisible:boolean = false;
 
   ngOnInit(): void {
+    
   }
   clickarea(diente:string){
     this.dientesview = diente

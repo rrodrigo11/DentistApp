@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const historial = require('../db/db_historial');
 const auth = require('../middlewares/auth');
 

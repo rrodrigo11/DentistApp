@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
+import { AuthenticationService } from 'src/app/common/services/authentication.service';
+import { SessionService } from 'src/app/common/services/session.service';
 
 interface Credentials{
   username:string ;
   password:string ;
-
 }
 
 @Component({
@@ -20,24 +23,58 @@ export class LogInComponent implements OnInit{
     password: "12345"
   };
 
-  loggedIn:boolean = false;
+  // loggedIn:boolean = false;
 
-  constructor (private socialAuthService:SocialAuthService){}
-  
-  ngOnInit():void{
-    this.socialAuthService.authState.subscribe(user=>{
+  form:FormGroup;
+  inputType:string = 'password';
+  loginError:boolean;
 
-      if(user){
-        console.log('Se inicio sesion:', user);
-      }else{
-        console.log('No hay sesion');
-      }
+  constructor(
+    private formBuilder:FormBuilder,
+    private sessionService:SessionService,
+    private authService:AuthenticationService,
+    private router:Router,
+    private socialAuthService: SocialAuthService
+  ) { }
+
+  ngOnInit(): void {
+    
+    // this.socialAuthService.authState.subscribe((user)=>{
+    //   if(user){
+    //     console.log('Datos del usuario de Google: ', user);
+    //     this.sessionService.googleLogin(user.idToken).then(response =>{
+    //       console.log('Respuesta del API: ', response);
+    //     })
+    //   .catch(err=>{
+    //     console.log('No se pudo iniciar sesion', err);
+    //   })
+    //   }else{
+    //     console.log('Se cerro la sesion');
+    //   }
       
-    })
+    // });
+    // this.form = this.formBuilder.group({
+    //   email: ['', [Validators.required, Validators.email]],
+    //   password: ['', Validators.required]
+    // });
+    this.socialAuthService.authState.subscribe((user) => {
+      if(user) {
+        // console.log('Google User?', user);
+        this.sessionService.googleLogin(user.idToken).then(response => {
+          console.log('Respuesta de API: ', response);
+        //   // this.authService.save(response, true);
+        //   this.loginError = false;
+        //   this.router.navigate(['/recientes']);
+        }).catch(err=>{
+          console.log('Encontre error:', err);
+        });
+      }
+    });
+
   }
 
   hacerLogin(){
-    console.log('Ya hice click en el boton', this.credentials);
+    console.log('Ya hice click en el boton');
   }
 
   googleLogin(){

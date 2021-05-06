@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const users = require('../db/db_users');
 const patients = require('../db/db_pacientes');
 const auth = require('../middlewares/auth');

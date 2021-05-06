@@ -72,6 +72,7 @@ userSchema.statics.getUserByEmail = async (correo) =>{
     }
     return usr;
 }
+
 userSchema.methods.actualizarUsuario = async function (datos){
     let hash = bcryptjs.hashSync(datos.password, 8);
     datos.password = hash;
