@@ -1,21 +1,25 @@
 const express = require('express');
+// const multer = require('multer');
+// const upload = multer({ dest: 'uploads/' });
 const router = express.Router();
 
 const pacientes = require('../db/db_pacientes');
 const auth = require('../middlewares/auth');
+// const imgs = require('../multer-s3/s3');
 
-
-router.route('/')
-    .get(auth.authToken, async(req, res)=>{
-        let ptt = await pacientes.showPacientes();
-        res.send(ptt);
-    })
 
 router.route('/:_id')//recibe como parámetro _id del dentista
+    .get( async(req, res)=>{
+        let ptt = await pacientes.showPacientesById(req.params._id);
+        res.send(ptt);
+    })
     .post(async(req, res)=>{
         console.log(req.body);
         let idDentista = req.params._id;
         let {name, email, password, phoneNumber, image, address, weight, height} = req.body;
+        // let file = req.file;
+        // let img = await imgs.uploadFile(file);
+        // let image = img.Key;
         let faltan ="";
 
         faltan+=name?'':'name, ';
@@ -64,7 +68,7 @@ router.route('/:_id')//recibe como parámetro _id del dentista
  *              description: success call to the endpoint
  */
 router.route('/:email')
-    .delete(auth.authToken, async(req, res) => {
+    .delete(async(req, res) => {
         let ptt = await pacientes.showPacientes();
         
         if(!ptt.find(p => p.email == req.params.email)){
@@ -78,7 +82,7 @@ router.route('/:email')
             res.status(400).send({error:"No se pudo eliminar. Verifique los datos y su conexión"});
         }
     })
-    .put(auth.authToken, async(req, res)=>{
+    .put(async(req, res)=>{
         if(req.params.email == req.body.email){
             let doc;
             try{

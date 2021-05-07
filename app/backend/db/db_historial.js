@@ -9,7 +9,7 @@ let historialSchema = mongoose.Schema({
     },
     date: {
         type: Date,
-        required: true
+        required: false
     },
     motivo_de_consulta: {
         type: String,
@@ -30,12 +30,10 @@ let historialSchema = mongoose.Schema({
             type: String
         },
         imagen: {
-            data: Buffer,
-            contentType: String
+            type: String
         },
         archivo:{
-            data: Buffer,
-            contentType: String
+            type: String
         }
     },
     historial_clinico: {
@@ -92,15 +90,27 @@ let historialSchema = mongoose.Schema({
             default: false
         }
     },
-    Observaciones: {
+    observaciones: {
         type: String,
         required: false
+    },
+    odontograma: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'db_odon',
     }
 });
 
 historialSchema.statics.showHistorial = async () => {
     try {
         let resp = await historial.find();
+        return resp;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+historialSchema.statics.showHistorialById = async (data) => {
+    try {
+        let resp = await historial.find({dentista_id: data.dentista_id}).find({paciente_id: data.paciente_id});
         return resp;
     } catch (e) {
         console.log(e);
@@ -140,6 +150,16 @@ historialSchema.statics.getHistorialById = async (ID) =>{
         console.log("Ocurrio un error: ", e);
     }
     return hst;
+}
+
+historialSchema.methods.actualizarHistorial = async function (data){
+    return historial.findOneAndUpdate(
+        {_id: this._id},
+        {$set:data},
+        {new: true,
+         useFindAndModify: false
+        }
+    )
 }
 
 const historial = mongoose.model('db_historial', historialSchema);

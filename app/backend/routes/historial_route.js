@@ -19,18 +19,20 @@ const auth = require('../middlewares/auth');
  *          200:
  *              description: success call to the endpoint
  */
-router.route('/')
-    .get( async(req, res)=>{
-        let hst = await historial.showHistorial();
+
+router.route('/:_id/:id')//mandar como parametros primero el id dentista y despues el id paciente
+    .get(async(req, res)=>{
+        let {dentista_id, paciente_id} = req.params;
+        let hst = await historial.showHistorialById({dentista_id, paciente_id});
         res.send(hst);
     })
     .post(async(req, res)=>{
         console.log(req.body);
-        let {dentista_id, paciente_id, date, motivo_de_consulta, enfermedad_actual, estudios, checkbox, observaciones} = req.body;
+        console.log(req.params);
+        let {dentista_id, paciente_id} = req.params;
+        let {date, motivo_de_consulta, enfermedad_actual, estudios, checkbox, observaciones} = req.body;
         let faltan ="";
 
-        faltan+=dentista_id?'':'dentista_id, ';
-        faltan+=paciente_id?'':'paciente_id, ';
         faltan+=date?'':'date, ';
         faltan+=motivo_de_consulta?'':'motivo_de_consulta, ';
         faltan+=observaciones?'':'observaciones, ';
@@ -66,9 +68,9 @@ router.route('/')
  *          200:
  *              description: success call to the endpoint
  */
-router.route('/:_id')
-    .get(auth.authToken, async(req, res) => {
-        let hst = await historial.getHistorialById(req.params.id);
+router.route('/:_id')//_id del historial
+    .get(async(req, res) => {
+        let hst = await historial.getHistorialById(req.params._id);
         if(hst){
             res.status(200).send(hst);
             return;
@@ -77,15 +79,30 @@ router.route('/:_id')
     .delete(async(req, res) => {
         let hst = await historial.showHistorial();
         
-        if(!hst.find(h => h.id == req.params.id)){
+        if(!hst.find(h => h._id == req.params._id)){
             res.status(400).send({Error: "No existe el historial a eliminar."});
             return;
         }
-        let deletedHst = await historial.deleteHistorial(req.params.id);
+        let deletedHst = await historial.deleteHistorial(req.params._id);
         if(deletedHst){
             res.status(200).send({historial_eliminado: deletedHst});
         }else{
             res.status(400).send({error:"No se pudo eliminar. Verifique los datos y su conexión"});
+        }
+    })
+    .put(async(req,res) => {
+        let doc;
+        let historial = await odon.getOdonById(req.params._id);
+        let historial_clinico_id = historial.historial_clinico_id;
+        let {descripcion_general, dientes} = req.body;
+        try{
+            doc = await odon.getOdonById(req.params._id);
+            if(doc){
+                await doc.actualizarOdon({historial_clinico_id, descripcion_general, dientes});
+                res.status(200).send({odontograma_actualizado: doc});
+            }
+        }catch(err){
+            res.status(404).send({error: "No se encontro el odontograma"}) 
         }
     })
 

@@ -12,8 +12,7 @@ let pacienteSchema = mongoose.Schema({
         unique: true
     },
     password: {
-        type: String,
-        required: true
+        type: String
     },
     phoneNumber: {
         type: Number,
@@ -36,12 +35,24 @@ let pacienteSchema = mongoose.Schema({
     height: {
         type: String,
         required: false
-    }
+    },
+    historial: [{
+        idHistorial: {type: mongoose.Schema.Types.ObjectId, ref: 'db_historial'},
+    }]
 });
 
 pacienteSchema.statics.showPacientes = async () => {
     try {
         let resp = await pacientes.find();
+        return resp;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+pacienteSchema.statics.showPacientesById = async (ID) => {
+    try {
+        let resp = await pacientes.find({idDentista: ID});
         return resp;
     } catch (e) {
         console.log(e);

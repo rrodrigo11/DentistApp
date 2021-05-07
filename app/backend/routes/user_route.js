@@ -22,13 +22,13 @@ const auth = require('../middlewares/auth');
  */
 
 router.route('/')
-    .get(auth.authToken, async(req, res)=>{
+    .get(async(req, res)=>{
         let usr = await users.showUsers();
         res.send(usr);
     })
     .post(async(req, res)=>{
         //console.log(req.body);
-        let {name, email, password, image, pacientes} = req.body;
+        let {name, email, password, image, terms, pacientes} = req.body;
         let faltan ="";
 
         faltan+=name?'':'name, ';
@@ -51,7 +51,7 @@ router.route('/')
             }  
         }
 
-        let newUser = await users.saveUsers({name, email, password, image, pacientes});
+        let newUser = await users.saveUsers({name, email, password, image, terms, pacientes});
 
         if(newUser){
             let token = await auth.createtoken(newUser.email)
@@ -79,7 +79,7 @@ router.route('/')
  *              description: success call to the endpoint
  */
 router.route('/:email')//recibe como parámetro email del dentista
-    .delete(auth.authToken, async(req, res) => {
+    .delete(async(req, res) => {
         let usr = await users.showUsers();
         
         if(!usr.find(u => u.email == req.params.email)){
@@ -93,7 +93,7 @@ router.route('/:email')//recibe como parámetro email del dentista
             res.status(400).send({error:"No se pudo eliminar. Verifique los datos y su conexión"});
         }
     })
-    .put(auth.authToken, async(req, res)=>{
+    .put(async(req, res)=>{
         if(req.params.email == req.body.email){
             let doc;
             try{
@@ -109,7 +109,7 @@ router.route('/:email')//recibe como parámetro email del dentista
             res.status(400).send({error:"No se debe de cambiar el correo."})
         }
     })
-    .get(auth.authToken, async(req, res)=>{
+    .get(async(req, res)=>{
         let usr = await users.getUserByEmail(req.params.email);
         if(usr){
             res.status(200).send(usr);
@@ -118,7 +118,7 @@ router.route('/:email')//recibe como parámetro email del dentista
     })
 
 router.route('/addPaciente/:email')//recibe como parámetro email del dentista
-    .get( async(req, res) => {
+    .get(async(req, res) => {
         let usr = await users.findOne({email: req.params.email});
         let arrUsr = [];
         console.log(usr);
@@ -136,7 +136,7 @@ router.route('/addPaciente/:email')//recibe como parámetro email del dentista
             res.status(404).send({error:"No hay pacientes registrados"});
         }
     })
-    .post(auth.authToken, async(req, res)=>{
+    .post(async(req, res)=>{
         let usr = await users.findOne({email: req.params.email});
         let idPtt = req.body._id;
         console.log(idPtt);
@@ -159,7 +159,7 @@ router.route('/addPaciente/:email')//recibe como parámetro email del dentista
             res.status(404).send({error: "Database Failed"});
         }
     })
-    .put(auth.authToken, async (req, res) =>{
+    .put(async (req, res) =>{
         let idPtt = req.body._id;
         let pttName = req.body.paciente;
         console.log(idPtt);
@@ -184,7 +184,7 @@ router.route('/addPaciente/:email')//recibe como parámetro email del dentista
             res.status(404).send({error: "Database Failed."});
         }
     })
-    .delete(auth.authToken, async (req, res) => {
+    .delete(async (req, res) => {
         let idPtt = req.body._id;
         let usr = await users.findOne({email: req.params.email});
         try {

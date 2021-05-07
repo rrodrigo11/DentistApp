@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 var cors = require('cors');
+const bodyParser = require('body-parser');
 
 
 const {
@@ -15,7 +16,6 @@ const {
 } = require ('./app/backend/routes');
 const { authToken } = require('./app/backend/middlewares/auth');
 
-//const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(express.json());
@@ -49,7 +49,10 @@ app.use('/login_route', loginRouter);
 
 // app.use('/', authToken);
 
-//app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
+app.use(bodyParser());
+app.use(cors());
 //app.use(express.static(__dirname+'/public'));
 
 /*ROUTES*/
@@ -60,6 +63,7 @@ app.use('/user_route', userRouter);
 app.use('/paciente_route', pacienteRouter);
 app.use('/odon_route', odonRouter);
 app.use('/connected_route', connectedRouter);
+
 app.get('/', (req, res) => {
         res.end('Api works!');
 });

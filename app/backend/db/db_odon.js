@@ -5,14 +5,17 @@ let odonSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: 'db_historial',
     },
     descripcion_general: {
-        type: String,
-        required: true,
-    }
+        type: String
+    },
+    dientes: [{
+        idDiente: {type: Number},
+        descripcion: {type: String}
+    }]
 });
 
-odonSchema.statics.showOdon = async () => {
+odonSchema.statics.showOdonById = async (ID) => {
     try {
-        let resp = await odon.find();
+        let resp = await odon.find({historial_clinico_id: ID});
         return resp;
     } catch (e) {
         console.log(e);
@@ -52,6 +55,16 @@ odonSchema.statics.getOdonById = async (ID) =>{
         console.log("Ocurrio un error: ", e);
     }
     return od;
+}
+
+odonSchema.methods.actualizarOdon = async function (data){
+    return odon.findOneAndUpdate(
+        {_id: this._id},
+        {$set:data},
+        {new: true,
+         useFindAndModify: false
+        }
+    )
 }
 
 
