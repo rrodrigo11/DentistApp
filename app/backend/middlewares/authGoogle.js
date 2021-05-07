@@ -1,29 +1,26 @@
-const {OAuth2Client} = require('google-auth-library');
-const CLIENT_ID = '776524041115-1ocj7eqsokjnm0li3lskh2sq5sd2nihq.apps.googleusercontent.com';
-const client = new OAuth2Client(CLIENT_ID);
+const jwt = require('jsonwebtoken');
 
 function googleToken(req, res, next){
-
     let token = req.cookies['token'];
-
-    let user = {};
-    
-    async function verify() {
-        const ticket = await client.verifyIdToken({
-            idToken: token,
-            audience: CLIENT_ID,
-        });
-        const payload = ticket.getPayload();
-        user.name = payload.name;
-        user.email = payload.email;
-        user.picture = payload.picture;
-      }
-      verify()
-      .then(()=>{
-        req.user = user;
-        next();
-      }).
-      catch(console.error);
+    if(token){
+      jwt.verify(token, "Token Key", (err, decoded)=>{
+          if(decoded){
+              req.userCorreo = decoded.correo;
+              //console.log(req.userCorreo);
+              next();
+          }else{
+              if(err.name == 'TokenExpiredError'){
+                  res.status(401).send({error:"Your session expired."})
+              }
+              res.status(401).send({error:"Invalid token."});
+          }
+      })
+  }else{
+      res.status(401).send({error: "You're not authenticated."})
+  }
 }
+function createtoken(req){
+  return jwt.sign({email: req.email}, "Token Key", {expiresIn: '1h'});
+};
 
-module.exports = {googleToken};
+module.exports = {googleToken, createtoken};

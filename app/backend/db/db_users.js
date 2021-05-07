@@ -15,8 +15,10 @@ let userSchema = mongoose.Schema({
         unique: true
     },
     password: {
-        type: String,
-        required: true
+        type: String
+    },
+    googleId: {
+        type: String
     },
     image: {
         type: String
@@ -26,6 +28,7 @@ let userSchema = mongoose.Schema({
         paciente: {type:  mongoose.Schema.Types.String, ref: 'db_pacientes'}
     }]
 });
+
 
 userSchema.statics.showUsers = async () => {
     try {
@@ -43,13 +46,23 @@ userSchema.statics.saveUsers = async (newUsr) => {
     let doc;
     try {
         doc = await usr.save();
+        //console.log(doc);
+    } catch (e) {
+        console.log("Ocurrio un error: ", e);
+    }
+    return doc;
+}
+userSchema.statics.saveUsersGoogle = async (newUsr) => {
+    let usr = users(newUsr);
+    let doc;
+    try {
+        doc = await usr.save();
         console.log(doc);
     } catch (e) {
         console.log("Ocurrio un error: ", e);
     }
     return doc;
 }
-
 userSchema.statics.deleteUsers = async (correo) => {
     let deletedUsr;
     try {
@@ -64,9 +77,9 @@ userSchema.statics.deleteUsers = async (correo) => {
 userSchema.statics.getUserByEmail = async (correo) =>{
     let usr;
     try{
-        console.log( "Correo mandado a getUserByEmail " + correo);
+        //console.log( "Correo mandado a getUserByEmail " + correo);
         usr = await users.findOne({email: ""+correo})
-        console.log(usr);
+        //console.log(usr);
     }catch(err){
         console.log("Ocurrio un error: ", e);
     }

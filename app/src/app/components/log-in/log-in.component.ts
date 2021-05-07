@@ -59,9 +59,9 @@ export class LogInComponent implements OnInit{
     // });
     this.socialAuthService.authState.subscribe((user) => {
       if(user) {
-        // console.log('Google User?', user);
+         console.log('Google User?', user);
         this.sessionService.googleLogin(user.idToken).then(response => {
-          console.log('Respuesta de API: ', response);
+          console.log('Respuesta de API: ', response.token);
         //   // this.authService.save(response, true);
         //   this.loginError = false;
         //   this.router.navigate(['/recientes']);
