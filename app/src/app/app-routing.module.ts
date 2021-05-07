@@ -30,7 +30,7 @@ const routes: Routes = [
   },
   {path : 'client' , children:
     [
-      {path : 'list' , component: ClientListComponent},
+      {path : 'list/:email' , component: ClientListComponent},
       {path: '' , component: ClientInfoComponent},
       {path : 'register' , component: ClientRegisterComponent}
 

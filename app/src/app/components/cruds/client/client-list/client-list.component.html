@@ -25,7 +25,7 @@
                 <th>Pacient Name</th>
                 <th class="text-center">Status</th>
                 <th class="action text-right">Action</th>
-              </tr>
+              </tr> 
             </thead>
 
             <tbody>
@@ -39,7 +39,7 @@
                   <div class="candidate-list-details">
                     <div class="candidate-list-info">
                       <div class="candidate-list-title">
-                        <h5 class="mb-0"><a routerLink="clinic/list:{{user.id}}">{{user.name}}</a></h5>
+                        <h5 class="mb-0"><a routerLink="clinic/list:{{user.id}}">{{user.paciente}}</a></h5>
                       </div>
 
                       <div class="candidate-list-option">
@@ -56,13 +56,12 @@
 
                 <td class="candidate-list-favourite-time text-center">
 
-                  <span class="candidate-list-time order-1">Shortlisted</span>
-
+                  <button type="button" class="btn btn-outline-primary">Historial Clinico</button>
                 </td>
 
                 <td>
                   <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                    <li><a routerLink="/client/{{user.id}}" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a></li>
+                    <li><a routerLink="/client/{{user.id}}" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit" (click)="deleteClient()"><i class="fas fa-pencil-alt"></i></a></li>
                     <li><a routerLink="/client/list" class="text-danger" data-toggle="tooltip" data-original-title="Delete" (click)="deleteClient()"><i class="far fa-trash-alt"></i></a></li>
                   </ul>
                 </td>
@@ -70,7 +69,7 @@
             </tbody>
 
           </table>
-          <div class="text-center mt-3 mt-sm-3">
+          <!-- <div class="text-center mt-3 mt-sm-3">
             <ul class="pagination justify-content-center mb-0">
               <li class="page-item disabled"> <span class="page-link">Prev</span> </li>
               <li class="page-item active" aria-current="page"><span class="page-link">1 </span> <span class="sr-only">(current)</span></li>
@@ -80,7 +79,7 @@
               <li class="page-item"><a class="page-link" href="#">25</a></li>
               <li class="page-item"> <a class="page-link" href="#">Next</a> </li>
             </ul>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

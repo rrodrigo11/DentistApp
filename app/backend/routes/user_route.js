@@ -118,7 +118,7 @@ router.route('/:email')//recibe como parámetro email del dentista
     })
 
 router.route('/addPaciente/:email')//recibe como parámetro email del dentista
-    .get(auth.authToken, async(req, res) => {
+    .get( async(req, res) => {
         let usr = await users.findOne({email: req.params.email});
         let arrUsr = [];
         console.log(usr);
@@ -143,7 +143,7 @@ router.route('/addPaciente/:email')//recibe como parámetro email del dentista
         
         try{
             if(usr){
-                ptt = usr.pacientes.find(p => p.idPaciente == idPtt);
+                let ptt = usr.pacientes.find(p => p.idPaciente == idPtt);
                 if(ptt){
                     res.status(400).send({error:"El paciente ya ha sido registrado previamente"})
                 }else{
@@ -168,7 +168,7 @@ router.route('/addPaciente/:email')//recibe como parámetro email del dentista
         console.log(usr);
         try{
             if(usr){
-                ptt = usr.pacientes.find(p => p.idPaciente == idPtt);
+                let ptt = usr.pacientes.find(p => p.idPaciente == idPtt);
                 console.log(ptt);
                 if(ptt){
                     await usr.actualizarPacientes(idPtt, pttName);
@@ -189,7 +189,7 @@ router.route('/addPaciente/:email')//recibe como parámetro email del dentista
         let usr = await users.findOne({email: req.params.email});
         try {
             if (usr) {
-                ptt = usr.pacientes.find(p => p.idPaciente == idPtt);
+                let ptt = usr.pacientes.find(p => p.idPaciente == idPtt);
                 console.log(ptt);
                 if (ptt) {
                     await usr.deletePacientes(idPtt);

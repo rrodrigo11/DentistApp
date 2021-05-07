@@ -1,4 +1,6 @@
 import { Component, OnInit , Input, Output, EventEmitter} from '@angular/core';
+import {ActivatedRoute } from '@angular/router';
+import { SessionService } from 'src/app/common/services/session.service';
 
 
 
@@ -18,10 +20,17 @@ export class ClientListComponent implements OnInit {
 
   users:any[] =[]
 
-  constructor( ) {}
+  constructor(private activatedRoute:ActivatedRoute, private sessionService: SessionService ) {}
 
   ngOnInit(): void {
-    
+    this.activatedRoute.params.subscribe(params=>{
+      this.sessionService.getClients(params.email).then(response=>{
+        console.log("Respuesta de la API: ", response);
+        this.users = response;
+      }).catch(err=>{
+        console.log("Error de API:",err);
+      });
+    })
   }
 
   myFunction()

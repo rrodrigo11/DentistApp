@@ -13,6 +13,10 @@ export class SessionService {
     const url = `${environment.apiUrl}user_route`;//Aqui es cambiar por login de backend
     return this.httpClient.post(url, data).toPromise();
   }
+  getClients(email:any):Promise<any> {
+    const url = `${environment.apiUrl}user_route/addPaciente/`+email;//Aqui es cambiar por login de backend
+    return this.httpClient.get(url).toPromise();
+  }
 
   login(credentials:any):Promise<any> {
     const url = `${environment.apiUrl}auth`; //Aqui es cambiar por login de backend

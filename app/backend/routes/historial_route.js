@@ -20,7 +20,7 @@ const auth = require('../middlewares/auth');
  *              description: success call to the endpoint
  */
 router.route('/')
-    .get(auth.authToken, async(req, res)=>{
+    .get( async(req, res)=>{
         let hst = await historial.showHistorial();
         res.send(hst);
     })
