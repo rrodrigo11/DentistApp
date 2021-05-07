@@ -38,7 +38,7 @@ const routes: Routes = [
   },
   {path : 'clinic' , children:
     [
-      {path : 'list' , component: ClinicHistoryListComponent},
+      {path : 'list/:did/:pid' , component: ClinicHistoryListComponent},
       {path: '' , component: ClinicHistoryInfoComponent},
       {path : 'register' , component: ClinicHistoryRegisterComponent}
     ]

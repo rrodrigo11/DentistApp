@@ -36,7 +36,17 @@ export class ClientListComponent implements OnInit {
   myFunction()
   {}
 
-  deleteClient(){
-
+  deleteClient(idpaciente:string, paciente:string){
+    if(confirm("Are you sure to delete "+ paciente)) {
+      this.activatedRoute.params.subscribe(params=>{
+        this.sessionService.deleteClient(params.email, idpaciente).then(response=>{
+          console.log("Respuesta de la API: ", response);
+          this.users = response;
+        }).catch(err=>{
+          console.log("Error de API:",err);
+        });
+      })
+    } 
+    return false
   }
 }

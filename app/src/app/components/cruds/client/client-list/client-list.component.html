@@ -22,9 +22,9 @@
           <table class="table manage-candidates-top mb-0">
             <thead>
               <tr>
-                <th>Pacient Name</th>
-                <th class="text-center">Status</th>
-                <th class="action text-right">Action</th>
+                <th>Patients</th>
+                <th class="text-center"></th>
+                <th class="action text-right"></th>
               </tr> 
             </thead>
 
@@ -39,13 +39,13 @@
                   <div class="candidate-list-details">
                     <div class="candidate-list-info">
                       <div class="candidate-list-title">
-                        <h5 class="mb-0"><a routerLink="clinic/list:{{user.id}}">{{user.paciente}}</a></h5>
+                        <h5 class="mb-0"><a routerLink="clinic/list:{{user.id}}">{{user.name}}</a></h5>
                       </div>
 
                       <div class="candidate-list-option">
                         <ul class="list-unstyled">
-                          <li><i class="fas fa-filter pr-1"></i>Information Technology</li>
-                          <li><i class="fas fa-map-marker-alt pr-1"></i>Rolling Meadows, IL 60008</li>
+                          <li><i class="fas fa-address-book pr-1" aria-hidden="true"></i>{{user.phoneNumber}}</li>
+                          <li><i class="fas fa-map-marker-alt pr-1"></i>{{user.address}}</li>
                         </ul>
                       </div>
                     </div>
@@ -56,13 +56,13 @@
 
                 <td class="candidate-list-favourite-time text-center">
 
-                  <button type="button" class="btn btn-outline-primary">Historial Clinico</button>
+                  <a type="button" routerLink="/clinic/list/:{{user.idDentista}}/:{{user.idDentista}}"class="btn btn-outline-primary" >Historia Clinica</a>
                 </td>
 
                 <td>
                   <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                    <li><a routerLink="/client/{{user.id}}" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit" (click)="deleteClient()"><i class="fas fa-pencil-alt"></i></a></li>
-                    <li><a routerLink="/client/list" class="text-danger" data-toggle="tooltip" data-original-title="Delete" (click)="deleteClient()"><i class="far fa-trash-alt"></i></a></li>
+                    <li><a routerLink="/client/{{user.id}}" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit" (click)="deleteClient(user.idpaciente, user.paciente)"><i class="fas fa-pencil-alt"></i></a></li>
+                    <li><a routerLink="/client/list" class="text-danger" data-toggle="tooltip" data-original-title="Delete" (click)="deleteClient(user.idpaciente, user.paciente)"><i class="far fa-trash-alt"></i></a></li>
                   </ul>
                 </td>
               </tr>

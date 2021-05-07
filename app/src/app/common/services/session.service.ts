@@ -14,8 +14,12 @@ export class SessionService {
     return this.httpClient.post(url, data).toPromise();
   }
   getClients(email:any):Promise<any> {
-    const url = `${environment.apiUrl}user_route/addPaciente/`+email;//Aqui es cambiar por login de backend
+    const url = `${environment.apiUrl}paciente_route/`+email;//Aqui es cambiar por login de backend
     return this.httpClient.get(url).toPromise();
+  }
+  deleteClient(email:any,id:any ):Promise<any> {
+    const url = `${environment.apiUrl}user_route/addPaciente/`+email;//Aqui es cambiar por login de backend
+    return this.httpClient.delete(url, id).toPromise();
   }
 
   login(credentials:any):Promise<any> {
