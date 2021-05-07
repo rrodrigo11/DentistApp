@@ -10,7 +10,7 @@ export class SessionService {
   constructor(private httpClient:HttpClient) { }
 
   signup(data:any):Promise<any> {
-    const url = `${environment.apiUrl}signup`;//Aqui es cambiar por login de backend
+    const url = `${environment.apiUrl}user_route`;//Aqui es cambiar por login de backend
     return this.httpClient.post(url, data).toPromise();
   }
 
@@ -22,5 +22,9 @@ export class SessionService {
   googleLogin(idToken:string):Promise<any> {
     const url = `${environment.apiUrl}google_route`;//Aqui es cambiar por login de backend
     return this.httpClient.post(url, { idToken: idToken }).toPromise();
+  }
+  
+  saveToken(token:string){
+    localStorage.setItem('token', token);
   }
 }

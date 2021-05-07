@@ -27,14 +27,14 @@ router.route('/')
         res.send(usr);
     })
     .post(async(req, res)=>{
-        console.log(req.body);
+        //console.log(req.body);
         let {name, email, password, image, pacientes} = req.body;
         let faltan ="";
 
         faltan+=name?'':'name, ';
         faltan+=email?'':'email, ';
         faltan+=password?'':'password, ';
-        console.log(faltan.length);
+        //console.log(faltan.length);
 
         if(faltan.length>0){
             res.status(400).send({error: "faltan datos."});
@@ -46,7 +46,7 @@ router.route('/')
 
         for (let i = 0; i < usr.length; i++) {
             if(usr[i].email == email){
-                res.status(400).send({Error: "Ya existe un usuario con ese correo."});
+                res.status(400).send({Error: "Ya existe un usuario con ese correo"});
                 return;
             }  
         }
@@ -54,10 +54,13 @@ router.route('/')
         let newUser = await users.saveUsers({name, email, password, image, pacientes});
 
         if(newUser){
-            res.status(201).send({usuario: newUser});
+            let token = await auth.createtoken(newUser.email)
+            console.log("Creacion exitosa de usuario y token");
+            res.status(201).send({token: token});  
         }else{
             res.status(400).send({error:"No se pudo guardar. Verifique los datos y su conexión"});
         }
+        
     })
 
 /**

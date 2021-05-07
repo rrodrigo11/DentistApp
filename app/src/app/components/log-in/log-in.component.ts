@@ -39,32 +39,15 @@ export class LogInComponent implements OnInit{
 
   ngOnInit(): void {
     
-    // this.socialAuthService.authState.subscribe((user)=>{
-    //   if(user){
-    //     console.log('Datos del usuario de Google: ', user);
-    //     this.sessionService.googleLogin(user.idToken).then(response =>{
-    //       console.log('Respuesta del API: ', response);
-    //     })
-    //   .catch(err=>{
-    //     console.log('No se pudo iniciar sesion', err);
-    //   })
-    //   }else{
-    //     console.log('Se cerro la sesion');
-    //   }
-      
-    // });
-    // this.form = this.formBuilder.group({
-    //   email: ['', [Validators.required, Validators.email]],
-    //   password: ['', Validators.required]
-    // });
     this.socialAuthService.authState.subscribe((user) => {
       if(user) {
          console.log('Google User?', user);
         this.sessionService.googleLogin(user.idToken).then(response => {
           console.log('Respuesta de API: ', response.token);
-        //   // this.authService.save(response, true);
-        //   this.loginError = false;
-        //   this.router.navigate(['/recientes']);
+          this.sessionService.saveToken(response.token);
+          // this.authService.save(response, true);
+          // this.loginError = false;
+          // this.router.navigate(['/recientes']);
         }).catch(err=>{
           console.log('Encontre error:', err);
         });

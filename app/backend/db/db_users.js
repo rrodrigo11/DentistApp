@@ -23,6 +23,9 @@ let userSchema = mongoose.Schema({
     image: {
         type: String
     },
+    terms: {
+        type: Boolean
+    },
     pacientes: [{
         idPaciente: {type: mongoose.Schema.Types.ObjectId, ref: 'db_pacientes'},
         paciente: {type:  mongoose.Schema.Types.String, ref: 'db_pacientes'}

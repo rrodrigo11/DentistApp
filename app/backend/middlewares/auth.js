@@ -20,4 +20,8 @@ function authToken(req,res,next){
     }
 }
 
-module.exports = {authToken};
+function createtoken(req){
+    return jwt.sign({email: req.email}, "Token Key", {expiresIn: '1h'});
+}
+
+module.exports = {authToken, createtoken};

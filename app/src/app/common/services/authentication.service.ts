@@ -10,7 +10,7 @@ export class AuthenticationService {
 
   // loginStatus:BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(/*private socket:SocketIoService ,*/ private socialAuthService:SocialAuthService) {
+  constructor(/*private socket:SocketIoService , */private socialAuthService:SocialAuthService) {
     // this.loginStatus.next(this.isLoggedIn());
   }
 

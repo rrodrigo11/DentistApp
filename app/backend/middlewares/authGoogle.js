@@ -19,6 +19,7 @@ function googleToken(req, res, next){
       res.status(401).send({error: "You're not authenticated."})
   }
 }
+
 function createtoken(req){
   return jwt.sign({email: req.email}, "Token Key", {expiresIn: '1h'});
 };
