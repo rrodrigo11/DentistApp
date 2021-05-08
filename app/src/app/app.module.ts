@@ -23,6 +23,7 @@ import { OdontogramListComponent } from './components/cruds/odontogram/odontogra
 import { DentistListComponent } from './components/cruds/dentist/dentist-list/dentist-list.component';
 import { environment } from 'src/environments/environment';
 import { HeaderComponent } from './components/layouts/header/header.component';
+import { NgModalComponent } from './components/ng-modal/ng-modal.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { HeaderComponent } from './components/layouts/header/header.component';
     OdontogramInfoComponent,
     OdontogramListComponent,
     DentistListComponent,
-    HeaderComponent
+    HeaderComponent,
+    NgModalComponent
     ],
   imports: [
     BrowserModule,

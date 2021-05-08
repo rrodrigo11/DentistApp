@@ -61,8 +61,8 @@
 
                 <td>
                   <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                    <li><a routerLink="/client/{{user.id}}" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit" (click)="deleteClient(user.idpaciente, user.paciente)"><i class="fas fa-pencil-alt"></i></a></li>
-                    <li><a routerLink="/client/list" class="text-danger" data-toggle="tooltip" data-original-title="Delete" (click)="deleteClient(user.idpaciente, user.paciente)"><i class="far fa-trash-alt"></i></a></li>
+                    <li><a  class="text-info" data-toggle="tooltip" title="" data-original-title="Edit" (click)="openModal()"><i class="fas fa-pencil-alt"></i></a></li>
+                    <li><a class="text-danger" data-toggle="tooltip" data-original-title="Delete" (click)="deleteClient(user.idpaciente, user.paciente)"><i class="far fa-trash-alt"></i></a></li>
                   </ul>
                 </td>
               </tr>

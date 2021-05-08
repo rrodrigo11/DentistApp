@@ -1,6 +1,9 @@
 import { Component, OnInit , Input, Output, EventEmitter} from '@angular/core';
 import {ActivatedRoute } from '@angular/router';
 import { SessionService } from 'src/app/common/services/session.service';
+import { NgModalComponent } from 'src/app/components/ng-modal/ng-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 
@@ -20,7 +23,7 @@ export class ClientListComponent implements OnInit {
 
   users:any[] =[]
 
-  constructor(private activatedRoute:ActivatedRoute, private sessionService: SessionService ) {}
+  constructor(private activatedRoute:ActivatedRoute, private sessionService: SessionService,  private _NgbModal: NgbModal ) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
@@ -49,4 +52,29 @@ export class ClientListComponent implements OnInit {
     } 
     return false
   }
+  openModal() {
+    this._NgbModal.open(NgModalComponent, {
+      windowClass: 'modal-job-scrollable'
+    });
+
+    // upwrap the "app-ng-modal" data to enable the "modal-dialog-scrollable"
+    // and make the modal scrollable
+    (() => {
+      const node: HTMLElement | null = document.querySelector('app-ng-modal');
+      if (node) {
+        while (node.firstChild) {
+          (node.parentNode as HTMLElement).insertBefore(node.firstChild, node);
+        }
+      }
+      // make the modal scrollable by adding the class .modal-dialog-scrollable
+      // here wait for one second so that we can find the .modal-dialog
+      setTimeout(() => {
+        const modalDialog = document.querySelector('.modal-job-scrollable .modal-dialog');
+        if (modalDialog) {
+          modalDialog.classList.add('modal-dialog-scrollable');
+        }
+      }, 1000)
+    })();
+  }
+
 }
