@@ -1,27 +1,27 @@
 <div class="modal-header">
-	<h4 class="modal-title">Modal title</h4>
+	<h4 class="modal-title">Modificar datos de cliente</h4>
 	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
-    <div class="col-md-8 py-5 border">
+    <div class=" py-5 border px-2">
         <h4 class="pb-4">Please fill with the client details</h4>
-        <form [formGroup]="form" (submit)="register()">
+        <form [formGroup]="form">
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                  <input id="Full Name" name="nombre" formControlName="nombre" placeholder="Full Name" class="form-control" type="text">
+                  <input id="Full Name" name="nombre" formControlName="nombre" placeholder="Full Name" [(ngModel)]="user.name" class="form-control" type="text">
                 </div>
                 <div class="form-group col-md-6">
-                  <input type="email" class="form-control" name="email" formControlName="email"  id="inputEmail4" placeholder="Email">
+                  <input type="email" class="form-control" name="email" formControlName="email" [(ngModel)]="user.email" id="inputEmail4" placeholder="Email" [disabled]="true">
                 </div>
               </div>
 
             <div class="form-row">
 
                 <div class="form-group col-md-6">
-                    <input id="Mobile No." name="phone" formControlName="phone"  placeholder="Mobile No." class="form-control" type="text">
+                    <input id="Mobile No." name="phone" formControlName="phone"  placeholder="Mobile No." [(ngModel)]="user.phoneNumber" class="form-control" type="text">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -40,25 +40,24 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <!-- <div class="form-group col-md-6">
                     <input id="dentistno" name="dentist" formControlName="dentist" placeholder="Dentist No." class="form-control" type="number">
+                </div> -->
+                <div class="form-group col-md-6">
+                    <input id="addres" name="addres" formControlName="address" placeholder="Addres" [(ngModel)]="user.address" class="form-control" type="text">
                 </div>
                 <div class="form-group col-md-6">
-                    <input id="addres" name="addres" formControlName="address" placeholder="Addres" class="form-control" type="text">
+                    <input id="height" name="height" formControlName="height" placeholder="Height" [(ngModel)]="user.height" class="form-control" type="text">
                 </div>
                 <div class="form-group col-md-6">
-                    <input id="height" name="height" formControlName="height" placeholder="Height" class="form-control" type="text">
-                </div>
-                <div class="form-group col-md-6">
-                    <input id="weight" name="weight" formControlName="weight" placeholder="Weight" class="form-control" type="text">
+                    <input id="weight" name="weight" formControlName="weight" placeholder="Weight" [(ngModel)]="user.weight" class="form-control" type="text">
                 </div>
             </div>
             
             <div class="form-row">
-                <button type="button" class="btn btn-danger">Submit</button>
-                <a routerLink="/client/list" class="py-1 px-2">Volver a lista de clientes</a>
+                <button type="button" class="btn btn-danger" (click)="passBack()">Submit</button>
             </div>
-            <p>Formulario valido? {{form.valid}}</p>
+            <!-- <p>Formulario valido? {{form.valid}}</p> -->
         </form>
     </div>
 </div>

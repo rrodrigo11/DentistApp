@@ -17,9 +17,13 @@ export class SessionService {
     const url = `${environment.apiUrl}paciente_route/`+email;//Aqui es cambiar por login de backend
     return this.httpClient.get(url).toPromise();
   }
-  deleteClient(email:any,id:any ):Promise<any> {
-    const url = `${environment.apiUrl}user_route/addPaciente/`+email;//Aqui es cambiar por login de backend
-    return this.httpClient.delete(url, id).toPromise();
+  deleteClient(email:any):Promise<any> {
+    const url = `${environment.apiUrl}paciente_route/`+email;//Aqui es cambiar por login de backend
+    return this.httpClient.delete(url).toPromise();
+  }
+  updateClient(email:any,data:any ):Promise<any> {
+    const url = `${environment.apiUrl}paciente_route/`+email;//Aqui es cambiar por login de backend
+    return this.httpClient.put(url, data).toPromise();
   }
 
   login(credentials:any):Promise<any> {

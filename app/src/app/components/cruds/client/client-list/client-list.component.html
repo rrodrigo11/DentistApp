@@ -29,7 +29,7 @@
             </thead>
 
             <tbody>
-              <tr class="candidates-list"  *ngFor="let user of users">
+              <tr class="candidates-list"  *ngFor="let user of users; let i = index">
                 <td class="title">
 
                   <div class="thumb">
@@ -61,8 +61,8 @@
 
                 <td>
                   <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                    <li><a  class="text-info" data-toggle="tooltip" title="" data-original-title="Edit" (click)="openModal()"><i class="fas fa-pencil-alt"></i></a></li>
-                    <li><a class="text-danger" data-toggle="tooltip" data-original-title="Delete" (click)="deleteClient(user.idpaciente, user.paciente)"><i class="far fa-trash-alt"></i></a></li>
+                    <li><a  class="text-info" data-toggle="tooltip" title="" data-original-title="Edit" (click)="openModal(i)"><i class="fas fa-pencil-alt"></i></a></li>
+                    <li><a class="text-danger" data-toggle="tooltip" data-original-title="Delete" (click)="deleteClient(user.email, user)"><i class="far fa-trash-alt"></i></a></li>
                   </ul>
                 </td>
               </tr>

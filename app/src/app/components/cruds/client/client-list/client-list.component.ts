@@ -39,21 +39,20 @@ export class ClientListComponent implements OnInit {
   myFunction()
   {}
 
-  deleteClient(idpaciente:string, paciente:string){
+  deleteClient(email:string, paciente:string){
     if(confirm("Are you sure to delete "+ paciente)) {
-      this.activatedRoute.params.subscribe(params=>{
-        this.sessionService.deleteClient(params.email, idpaciente).then(response=>{
+
+        this.sessionService.deleteClient(email).then(response=>{
           console.log("Respuesta de la API: ", response);
           this.users = response;
         }).catch(err=>{
           console.log("Error de API:",err);
         });
-      })
     } 
     return false
   }
-  openModal() {
-    this._NgbModal.open(NgModalComponent, {
+  openModal(index:number) {
+    const modalRef = this._NgbModal.open(NgModalComponent, {
       windowClass: 'modal-job-scrollable'
     });
 
@@ -75,6 +74,20 @@ export class ClientListComponent implements OnInit {
         }
       }, 1000)
     })();
+    modalRef.componentInstance.user = this.users[index]
+    modalRef.result.then((result) => {
+      if (result) {
+      console.log(result);
+      this.sessionService.updateClient(result.email, result).then(response=>{
+        console.log("Respuesta de la API: ", response);
+        this.users = response;
+      }).catch(err=>{
+        console.log("Error de API:",err);
+      });
+      }
+      });
+
   }
+  
 
 }
