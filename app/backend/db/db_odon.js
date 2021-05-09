@@ -2,7 +2,9 @@ const mongoose = require('./db_connect');
 
 let odonSchema = mongoose.Schema({
     historial_clinico_id: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'db_historial',
+        type: String,
+        // type: mongoose.Schema.Types.ObjectId, ref: 'db_historial',
+
     },
     descripcion_general: {
         type: String

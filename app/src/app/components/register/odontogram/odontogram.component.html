@@ -183,20 +183,35 @@ class=" mx-auto d-block " usemap=#imgmap>
     <div class="row">
         <textarea name="ans" [(ngModel)]="dientework" class="form-control w-50 mx-auto" id="textAreaExample1" rows="4"></textarea>
         <button type="submit" class="btn btn-primary bg-blue">Primary</button>
-    </div>
+    </div> 
 </div> -->
 <div class="container">
             <div class="form-horizontal">
                   <div class="form-group">
-                        <div class="col-xs-2">
+                        <div class="row">
+                              <div class="col-xs-2">
+                              </div>
+                              <div class="col-xs-8">
+                                    <textarea class="form-control input-sm" rows="4" style="resize: none" [(ngModel)]="dientework" id="serviceNowStr"  placeholder="Trabajo en diente"></textarea>
+                              </div>
+                              <div class="col-xs-2">
+                                    <div class="vertical-center">
+                                          <button class="btn uk-button btn-block btn-default " (click)="savetooth()">Guardar Datos</button>
+                                    </div>
+                              </div>
                         </div>
-                        <div class="col-xs-8">
-                              <textarea class="form-control input-sm" rows="4" style="resize: none" [(ngModel)]="dientework" id="serviceNowStr"  placeholder="Trabajo en diente"></textarea>
-                        </div>
-                        <div class="col-xs-2">
-                              <button class="btn uk-button btn-block btn-default " (click)="savetooth()">Guardar Datos</button>
-                              <button class="btn uk-button btn-block btn-primary " ng-click="openServiceNowPopup(formData_EventDetails)"> Finalizar </button>
-                        </div>
+                        <div class="row">
+                              <div class="col-xs-2">
+                              </div>
+                              <div class="col-xs-8 mt-3">
+                                    <textarea class="form-control input-sm" rows="4" style="resize: none" [(ngModel)]="descrigeneral" id="serviceNowStr"  placeholder="Descripcion general"></textarea>
+                              </div>
+                              <div class="col-xs-2">
+                                    <div class="vertical-center">
+                                    <button class="btn uk-button btn-block btn-primary " (click)="regOdon()"> Finalizar </button>
+                                    </div>
+                              </div>
+                         </div>     
                   </div>
             </div>
 </div>

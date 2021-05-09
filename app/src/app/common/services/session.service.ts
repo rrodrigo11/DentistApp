@@ -25,6 +25,16 @@ export class SessionService {
     const url = `${environment.apiUrl}paciente_route/`+email;//Aqui es cambiar por login de backend
     return this.httpClient.put(url, data).toPromise();
   }
+  registerOdon(idH:any,descripcion_general:any,dientes:any ):Promise<any> {
+    const url = `${environment.apiUrl}odon_route/`+idH;//Aqui es cambiar por login de backend
+    let body = {descripcion_general, dientes }
+    return this.httpClient.post(url, body).toPromise();
+  }
+  getOdon(idH:any):Promise<any> {
+    const url = `${environment.apiUrl}odon_route/`+idH;//Aqui es cambiar por login de backend
+    return this.httpClient.get(url).toPromise();
+  }
+
 
   login(credentials:any):Promise<any> {
     const url = `${environment.apiUrl}auth`; //Aqui es cambiar por login de backend

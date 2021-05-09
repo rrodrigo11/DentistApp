@@ -30,7 +30,7 @@ const routes: Routes = [
   },
   {path : 'client' , children:
     [
-      {path : 'list/:email' , component: ClientListComponent},
+      {path : 'list/:id' , component: ClientListComponent},
       {path: '' , component: ClientInfoComponent},
       {path : 'register' , component: ClientRegisterComponent}
 
@@ -45,9 +45,9 @@ const routes: Routes = [
   },
   {path : 'odontogram' , children:
     [
-      {path: '' , component: OdontogramInfoComponent},
+      {path: ':idH' , component: OdontogramInfoComponent},
       {path : 'list' , component: OdontogramListComponent},
-      {path : 'register' , component: OdontogramRegisterComponent}
+      {path : 'register/:id' , component: OdontogramRegisterComponent}
 
     ]
   },
