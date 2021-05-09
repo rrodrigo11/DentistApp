@@ -1,14 +1,11 @@
 const express = require('express');
-// const multer = require('multer');
-// const upload = multer({ dest: 'uploads/' });
 const router = express.Router();
-
 const pacientes = require('../db/db_pacientes');
 const auth = require('../middlewares/auth');
-// const imgs = require('../multer-s3/s3');
+const fileUpload = require('../multer-s3/s3');
 
 
-router.route('/:id')//recibe como parámetro _id del dentista
+router.route('/:_id')//recibe como parámetro _id del dentista
     .get( async(req, res)=>{
         let ptt = await pacientes.showPacientesById(req.params._id);
         res.send(ptt);
@@ -47,6 +44,19 @@ router.route('/:id')//recibe como parámetro _id del dentista
         let newPtt = await pacientes.savePacientes({name, email, password, phone, image, idDentista, address, weight, height});
         
 
+        // image = fileUpload(req, res, (err) => {
+        //     if(err){
+        //         res.json(err);
+        //     }else{
+        //         if (req.file === undefined) {
+        //             res.json('No image selected');
+        //         } else {
+        //             const imageName = req.file.key;
+        //             res.json(imageName);
+        //         }
+        //     }
+        // })
+
         if(newPtt){
             res.status(201).send({usuario: newPtt});
         }else{
@@ -69,7 +79,7 @@ router.route('/:id')//recibe como parámetro _id del dentista
  *          200:
  *              description: success call to the endpoint
  */
-router.route('/:email')
+router.route('/:email')//email del paciente
     .delete(async(req, res) => {
         let ptt = await pacientes.showPacientes();
         

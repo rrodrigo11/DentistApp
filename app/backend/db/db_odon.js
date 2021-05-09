@@ -15,6 +15,15 @@ let odonSchema = mongoose.Schema({
     }]
 });
 
+odonSchema.statics.showOdon = async () => {
+    try {
+        let resp = await odon.find();
+        return resp;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 odonSchema.statics.showOdonById = async (ID) => {
     try {
         let resp = await odon.find({historial_clinico_id: ID});

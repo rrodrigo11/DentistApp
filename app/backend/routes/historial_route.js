@@ -22,15 +22,17 @@ const auth = require('../middlewares/auth');
 
 router.route('/:_id/:id')//mandar como parametros primero el id dentista y despues el id paciente
     .get(async(req, res)=>{
-        let {dentista_id, paciente_id} = req.params;
-        let hst = await historial.showHistorialById({dentista_id, paciente_id});
+        let dentista_id = req.params._id;
+        let paciente_id = req.params.id;
+        let hst = await historial.showHistorialById(dentista_id, paciente_id);
         res.send(hst);
     })
     .post(async(req, res)=>{
         console.log(req.body);
         console.log(req.params);
-        let {dentista_id, paciente_id} = req.params;
-        let {date, motivo_de_consulta, enfermedad_actual, estudios, checkbox, observaciones} = req.body;
+        let dentista_id = req.params._id;
+        let paciente_id = req.params.id;
+        let {date, motivo_de_consulta, enfermedad_actual, estudios, historial_clinico, observaciones} = req.body;
         let faltan ="";
 
         faltan+=date?'':'date, ';
@@ -44,7 +46,7 @@ router.route('/:_id/:id')//mandar como parametros primero el id dentista y despu
             return;
         }
 
-        let newHst = await historial.saveHistorial({dentista_id, paciente_id, date, motivo_de_consulta, enfermedad_actual, estudios, checkbox, observaciones});
+        let newHst = await historial.saveHistorial({dentista_id, paciente_id, date, motivo_de_consulta, enfermedad_actual, estudios, historial_clinico, observaciones});
 
         if(newHst){
             res.status(201).send({historial: newHst});

@@ -32,9 +32,7 @@ export class ClientListComponent implements OnInit {
       private router: Router ) {
         this.auth.loginStatus.subscribe(flag=>{
           this.loggedIn=flag;
-          if(this.loggedIn){
-           // this.router.navigate(['/client/list']);
-          }else{
+          if(!this.loggedIn){
             this.router.navigate(['/login']);
           }
         })

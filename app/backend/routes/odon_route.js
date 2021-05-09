@@ -7,6 +7,7 @@ const auth = require('../middlewares/auth');
 router.route('/:_id')//recibe como parámetro _id del historial
     .get( async(req, res)=>{
         let od = await odon.showOdonById(req.params._id);
+        console.log(od);
         res.send(od);
     })
     .post(async(req, res)=>{
