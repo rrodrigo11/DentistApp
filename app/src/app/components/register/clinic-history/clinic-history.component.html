@@ -13,20 +13,7 @@
             </div>
             <div class="col-md-8 py-5 border">
                 <h4 class="pb-4">Please fill with the client details for Clinic History</h4>
-                <form [formGroup]="form" (submit)="register()">
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <input id="clinic-id" name="id" formControlName="id"  placeholder="Clinic History No." class="form-control" type="text" required="required">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                          <input id="dentist-id" name="dentistID" formControlName="dentistID"  placeholder="Dentist Number" class="form-control" type="text" required="required">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input id="client-id" name="clientID" formControlName="clientID" placeholder="Client Number" class="form-control" type="text" required="required">
-                        </div>
-                    </div>
+                <form [formGroup]="form" >
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <input id="date"  name="date" formControlName="date" placeholder="Date" class="form-control" type="date" required="required">
@@ -35,19 +22,20 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             Reason:
-                                  <textarea id="reason" name="reason" formControlName="reason" cols="40" rows="5" class="form-control"></textarea>
+                                  <textarea  name="reason" formControlName="reason" cols="40" rows="5" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             Observations:
-                                  <textarea id="reason" name="observations" formControlName="observations" cols="40" rows="5" class="form-control"></textarea>
+                                  <textarea  name="observations" formControlName="observations" cols="40" rows="5" class="form-control"></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" (click)="register()">Submit</button>
+                    <div>
+                        <a (click)="returnClinicList()" class="py-1 px-2" >Return Clinic List</a>
+                    </div>
                 </form>
-                <p>Formulario valido? {{form.valid}}</p>
-
             </div>
         </div>
     </div>

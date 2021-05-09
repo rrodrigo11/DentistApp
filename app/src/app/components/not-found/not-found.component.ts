@@ -23,7 +23,6 @@ export class NotFoundComponent implements OnInit {
 
   home(){
     if(this.loggedIn){
-      console.log('/client/list'+localStorage.getItem("idDentist"));
       this.router.navigate(['/client/list/'+localStorage.getItem("idDentist")]);
     }else{
       this.router.navigate(['/login']);

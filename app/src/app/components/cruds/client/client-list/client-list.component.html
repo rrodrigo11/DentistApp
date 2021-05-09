@@ -35,7 +35,8 @@
                 <td class="title">
 
                   <div class="thumb">
-                    <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+                    <!-- <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""> -->
+                    <img class="img-fluid" src={{user.image}} >
                   </div>
 
                   <div class="candidate-list-details">
@@ -58,7 +59,7 @@
 
                 <td class="candidate-list-favourite-time text-center">
 
-                  <a type="button" routerLink="/clinic/list/:{{user.idDentista}}/:{{user.idDentista}}"class="btn btn-outline-primary" >Historia Clinica</a>
+                  <a type="button" (click)="navigate_clinic_list(user._id)" class="btn btn-outline-primary" >Historia Clinica</a>
                 </td>
 
                 <td>

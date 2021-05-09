@@ -22,23 +22,25 @@ const auth = require('../middlewares/auth');
 
 router.route('/:_id/:id')//mandar como parametros primero el id dentista y despues el id paciente
     .get(async(req, res)=>{
-        let dentista_id = req.params._id;
-        let paciente_id = req.params.id;
-        let hst = await historial.showHistorialById(dentista_id, paciente_id);
-        res.send(hst);
+        let idDentist = req.params._id;
+        let idPacient = req.params.id;
+        //console.log("dentista:",idDentist, "paciente", idPacient);
+        let hst = await historial.showHistorialById(idDentist, idPacient);
+        if(hst){
+            res.status(200).send(hst)
+        }else{
+            res.status(400).send("Something went wrong")
+        }
     })
     .post(async(req, res)=>{
+        console.log("Si entre");
         console.log(req.body);
         console.log(req.params);
-        let dentista_id = req.params._id;
-        let paciente_id = req.params.id;
-        let {date, motivo_de_consulta, enfermedad_actual, estudios, historial_clinico, observaciones} = req.body;
+        let idDentist = req.params._id;
+        let idPacient = req.params.id;
+        let {date, reason, observations, estudios, historial_clinico} = req.body;
         let faltan ="";
-
-        faltan+=date?'':'date, ';
-        faltan+=motivo_de_consulta?'':'motivo_de_consulta, ';
-        faltan+=observaciones?'':'observaciones, ';
-        console.log(faltan.length);
+        //console.log(faltan.length);
 
         if(faltan.length>0){
             res.status(400).send({error: "faltan datos."});
@@ -46,7 +48,7 @@ router.route('/:_id/:id')//mandar como parametros primero el id dentista y despu
             return;
         }
 
-        let newHst = await historial.saveHistorial({dentista_id, paciente_id, date, motivo_de_consulta, enfermedad_actual, estudios, historial_clinico, observaciones});
+        let newHst = await historial.saveHistorial({idDentist, idPacient, date, reason, observations, estudios, historial_clinico});
 
         if(newHst){
             res.status(201).send({historial: newHst});
@@ -80,7 +82,6 @@ router.route('/:_id')//_id del historial
     })
     .delete(async(req, res) => {
         let hst = await historial.showHistorial();
-        
         if(!hst.find(h => h._id == req.params._id)){
             res.status(400).send({Error: "No existe el historial a eliminar."});
             return;

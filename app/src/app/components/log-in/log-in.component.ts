@@ -70,7 +70,6 @@ export class LogInComponent implements OnInit{
   }
 
    hacerLogin(){
-    console.log("Si funciona");
     this.sessionService.login(this.credentials).then(response=>{
       this.token = response.token;
        this.user =  this.sessionService.getIdDentist(this.credentials.email).then(response=>{

@@ -29,9 +29,9 @@ export class ClientRegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      name: ['pepe', Validators.required  ],
-      email: ['pp@test.com', [Validators.required, Validators.email]  ],
-      phone: ['1234567890', Validators.required ],
+      name: ['', Validators.required  ],
+      email: ['', [Validators.required, Validators.email]  ],
+      phone: ['', Validators.required ],
       photo: [''  ],
       address: [''  ],
       height: [''  ],
@@ -49,6 +49,10 @@ export class ClientRegisterComponent implements OnInit {
     } else {
       console.log('Te faltan datos.')
     }
+  }
+  
+  returnClientList(){
+    this.router.navigate(['/client/list/'+localStorage.getItem("idDentist")]);
   }
 
 }

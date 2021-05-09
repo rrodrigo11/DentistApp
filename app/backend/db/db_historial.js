@@ -1,21 +1,17 @@
 const mongoose = require('./db_connect');
 
 let historialSchema = mongoose.Schema({
-    dentista_id: {
+    idDentist: {
         type: mongoose.Schema.Types.ObjectId, ref: 'db_users',
     },
-    paciente_id: {
+    idPacient: {
         type: mongoose.Schema.Types.ObjectId, ref: 'db_pacientes',
     },
     date: {
         type: String,
         required: false
     },
-    motivo_de_consulta: {
-        type: String,
-        required: false
-    },
-    enfermedad_actual: {
+    reason: {
         type: String,
         required: false
     },
@@ -86,7 +82,7 @@ let historialSchema = mongoose.Schema({
             default: false
         }
     },
-    observaciones: {
+    observations: {
         type: String,
         required: false
     }
@@ -103,7 +99,7 @@ historialSchema.statics.showHistorial = async () => {
 
 historialSchema.statics.showHistorialById = async (Id1, Id2) => {
     try {
-        let resp = await historial.find({dentista_id: Id1}).find({paciente_id: Id2});
+        let resp = await historial.find({idDentist: Id1}).find({idPacient: Id2});
         return resp;
     } catch (e) {
         console.log(e);
@@ -125,8 +121,8 @@ historialSchema.statics.saveHistorial = async (newHst) => {
 historialSchema.statics.deleteHistorial = async (ID) => {
     let deletedHst;
     try {
-        deletedHst = await historial.findOneAndDelete({id: ""+ID});
-        console.log(deletedHst);
+        console.log("Sigue llegando");
+        deletedHst = await historial.findOneAndDelete({_id: ""+ID});
     } catch (e) {
         console.log("Ocurrio un error: ", e);
     }

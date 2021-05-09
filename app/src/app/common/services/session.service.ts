@@ -15,7 +15,6 @@ export class SessionService {
   }
   getClients(idDentista:any):Promise<any> {
     const url = `${environment.apiUrl}paciente_route/`+idDentista;//Aqui es cambiar por login de backend
-    console.log(url);
     return this.httpClient.get(url).toPromise();
   }
   deleteClient(email:any):Promise<any> {
@@ -36,7 +35,9 @@ export class SessionService {
     return this.httpClient.get(url).toPromise();
   }
 
-
+  deleteClinic(idClinic:string){
+    const url = `${environment.apiUrl}historial_route/`+idClinic;
+    return this.httpClient.delete(url).toPromise();  }
   login(credentials:any):Promise<any> {
     const url = `${environment.apiUrl}login_route`; 
     return this.httpClient.post(url, credentials).toPromise();
@@ -49,6 +50,11 @@ export class SessionService {
 
   getIdDentist(email:any){
     const url = `${environment.apiUrl}user_route/${email}`;
+    return this.httpClient.get(url).toPromise();
+  }
+
+  getHistory_List(idDentist:string, idPacient:string){
+    const url = `${environment.apiUrl}historial_route/`+idDentist+"/"+idPacient;//Aqui es cambiar por login de backend
     return this.httpClient.get(url).toPromise();
   }
 

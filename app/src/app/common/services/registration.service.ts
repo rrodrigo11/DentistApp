@@ -17,5 +17,13 @@ export class RegistrationService {
     console.log(data,url);
     return this.httpClient.post(url, data).toPromise();
   }
+
+  registerHistory(data:any){
+    let idDentist = data.idDentist;
+    let idPacient = data.idPacient;
+    let url = `${environment.apiUrl}historial_route/${idDentist}/${idPacient}`;//Aqui es cambiar por login de backend
+    //console.log(data,url);
+    return this.httpClient.post(url, data).toPromise();
+  }
 }
 

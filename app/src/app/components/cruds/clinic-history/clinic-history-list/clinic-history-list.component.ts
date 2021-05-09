@@ -3,12 +3,12 @@ import {ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/common/services/authentication.service';
 import { SessionService } from 'src/app/common/services/session.service';
 
-
-interface User{
-  id:number,
-  name: string,
-  email:string,
-  phone:string
+interface History{
+  _id: string,
+  date: string,
+  observations: string,
+  reason: string,
+  historial_clinico: {}
 }
 
 @Component({
@@ -18,7 +18,7 @@ interface User{
 })
 export class ClinicHistoryListComponent implements OnInit {
 
-  users:any[] =[]
+  histories:any ;
   loggedIn:boolean = false;
 
   constructor(private router: Router,
@@ -32,19 +32,36 @@ export class ClinicHistoryListComponent implements OnInit {
           this.router.navigate(['/login']);
         }
       })
+      this.activatedRoute.params.subscribe(params=>{
+        this.sessionService.getHistory_List(params.did, params.pid).then(response=>{
+          this.histories = response;
+        }).catch(err=>{
+          console.log("Error de API:",err);
+        });
+      })
+        
      }
 
   ngOnInit(): void {
+  }
+  addClinicHistory(){
     this.activatedRoute.params.subscribe(params=>{
-      this.sessionService.getClients(params.email).then(response=>{
-        console.log("Respuesta de la API: ", response);
-        this.users = response;
-      }).catch(err=>{
-        console.log("Error de API:",err);
-      });
+      this.router.navigate(['/clinic/register/'+params.pid]);
     })
   }
-  myFunction()
-  {}
+  returnPacientList(){
+    this.activatedRoute.params.subscribe(params=>{
+      this.router.navigate(['/client/list/'+params.did]);
+    })
+  }
+  deleteClinic(idClinic:string){
+    this.activatedRoute.params.subscribe(params=>{
+      this.sessionService.deleteClinic(idClinic),
+      this.router.navigate(['/clinic/list/'+params.did+'/'+params.pid]);
+    })
+  }
+  goToClinic(idHistory:string){
+      this.router.navigate(['/clinic/'+idHistory]);
+  }
 }
 
