@@ -34,7 +34,6 @@ export class SessionService {
     const url = `${environment.apiUrl}odon_route/`+idH;//Aqui es cambiar por login de backend
     return this.httpClient.get(url).toPromise();
   }
-
   deleteClinic(idClinic:string){
     const url = `${environment.apiUrl}historial_route/`+idClinic;
     return this.httpClient.delete(url).toPromise();  }
@@ -42,12 +41,10 @@ export class SessionService {
     const url = `${environment.apiUrl}login_route`; 
     return this.httpClient.post(url, credentials).toPromise();
   }
-
   googleLogin(idToken:string):Promise<any> {
     const url = `${environment.apiUrl}google_route`;
     return this.httpClient.post(url, { idToken: idToken }).toPromise();
   }
-
   getIdDentist(email:any){
     const url = `${environment.apiUrl}user_route/${email}`;
     return this.httpClient.get(url).toPromise();
@@ -55,6 +52,12 @@ export class SessionService {
 
   getHistory_List(idDentist:string, idPacient:string){
     const url = `${environment.apiUrl}historial_route/`+idDentist+"/"+idPacient;//Aqui es cambiar por login de backend
+    return this.httpClient.get(url).toPromise();
+  }
+  getClinic(id:any):Promise<any> {
+    console.log(id)
+    const url = `${environment.apiUrl}historial_route/`+id //Aqui es cambiar por login de backend
+    console.log(url)
     return this.httpClient.get(url).toPromise();
   }
 

@@ -25,5 +25,11 @@ export class RegistrationService {
     //console.log(data,url);
     return this.httpClient.post(url, data).toPromise();
   }
+
+  registerOdon(idClinic:any){
+    let url = `${environment.apiUrl}odon_route/${idClinic}`;//Aqui es cambiar por login de backend
+    console.log(url);
+    return this.httpClient.post(url,idClinic).toPromise();
+  }
 }
 

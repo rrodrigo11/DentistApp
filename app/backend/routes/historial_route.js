@@ -74,6 +74,7 @@ router.route('/:_id/:id')//mandar como parametros primero el id dentista y despu
  */
 router.route('/:_id')//_id del historial
     .get(async(req, res) => {
+        console.log(req.params._id);
         let hst = await historial.getHistorialById(req.params._id);
         if(hst){
             res.status(200).send(hst);

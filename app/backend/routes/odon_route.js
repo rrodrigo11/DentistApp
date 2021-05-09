@@ -11,7 +11,7 @@ router.route('/:_id')//recibe como parámetro _id del historial
         res.send(od);
     })
     .post(async(req, res)=>{
-        console.log(req.body);
+        console.log("LOCASO",req.params._id);
         let historial_clinico_id = req.params._id;
         let {descripcion_general, dientes} = req.body;
         let faltan ="";

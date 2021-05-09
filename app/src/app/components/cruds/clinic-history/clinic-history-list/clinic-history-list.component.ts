@@ -56,12 +56,15 @@ export class ClinicHistoryListComponent implements OnInit {
   }
   deleteClinic(idClinic:string){
     this.activatedRoute.params.subscribe(params=>{
-      this.sessionService.deleteClinic(idClinic),
+      this.sessionService.deleteClinic(idClinic);
       this.router.navigate(['/clinic/list/'+params.did+'/'+params.pid]);
     })
   }
   goToClinic(idHistory:string){
-      this.router.navigate(['/clinic/'+idHistory]);
+    this.activatedRoute.params.subscribe(params=>{
+      this.router.navigate(['/clinic/'+idHistory+'/'+params.did+'/'+params.pid]);
+    })
+
   }
 }
 

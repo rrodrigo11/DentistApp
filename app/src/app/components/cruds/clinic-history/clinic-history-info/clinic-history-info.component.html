@@ -1,24 +1,59 @@
-<p>clinic-history-info works!</p>
 
 <div class="container mx-10">
-<table class="table table-striped">
-    <thead>
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col"></th>
-          <th scope="col">Descripcion</th>
-        </tr>
-      </thead>
-        <tbody>
-        <tr >
-            <td class="id">
-            </td>
-            <td class="des">
-            </td>
-        </tr>
-       </tbody>
-  </table>
-  <div>
-    <a  class="py-1 px-2" >Return Clinic History List</a>
-</div>
-</div>
+  <table class="table table-striped">
+      <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col"> {{clinicH.date}}        
+  
+            </th>
+            <th scope="col">Motivo de Consulta</th>
+            <th scope="col">{{clinicH.motivoc}}  </th>
+  
+          </tr>
+        </thead>
+          <tbody>
+          <tr >
+              <td >
+                  Enfermedad Actual
+              </td>
+              <td >
+                  {{clinicH.reason}}
+              </td>
+              <td>
+                  Observaciones
+              </td>
+              <td >
+                  {{clinicH.observations}}
+              </td>
+          </tr>
+  
+          <tr>
+              <td >
+                  Alergias: {{clinicH.historial_clinico.alergias}}
+              </td>
+              <td >
+                  Cardiopatias: {{clinicH.historial_clinico.cardiopatias}}
+              </td>
+              <td>
+                  Diabetes: {{clinicH.historial_clinico.diabetes}}
+              </td>
+              <td>
+                  Embarazo: {{clinicH.historial_clinico.embarazo}}
+              </td>
+  
+          </tr>
+         </tbody>
+    </table>
+    <div>
+      <div>
+        <button type="button" class="btn btn-primary btn-sm" (click)="addOdon()">Add Odon</button>
+      </div>
+      <div>
+        <a  class="py-1 px-2" (click)="returnClinicList()">Return Clinic History List</a>
+      </div>
+  </div>
+
+
+  
+  

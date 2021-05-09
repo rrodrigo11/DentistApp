@@ -133,7 +133,7 @@ historialSchema.statics.getHistorialById = async (ID) =>{
     let hst;
     try{
         console.log( "Id mandado a getHistorialById " + ID);
-        hst = await historial.findOne({id: ""+ID})
+        hst = await historial.findOne({_id: ""+ID})
         console.log(hst);
     }catch(err){
         console.log("Ocurrio un error: ", e);
