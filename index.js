@@ -51,7 +51,7 @@ app.use('/login_route', loginRouter);
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(bodyParser());
+app.use(bodyParser.json());
 app.use(cors());
 //app.use(express.static(__dirname+'/public'));
 

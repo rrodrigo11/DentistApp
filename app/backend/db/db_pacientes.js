@@ -35,10 +35,7 @@ let pacienteSchema = mongoose.Schema({
     height: {
         type: String,
         required: false
-    },
-    historial: [{
-        idHistorial: {type: mongoose.Schema.Types.ObjectId, ref: 'db_historial'},
-    }]
+    }
 });
 
 pacienteSchema.statics.showPacientes = async () => {

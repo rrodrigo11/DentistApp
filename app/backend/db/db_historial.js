@@ -8,7 +8,7 @@ let historialSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: 'db_pacientes',
     },
     date: {
-        type: Date,
+        type: String,
         required: false
     },
     motivo_de_consulta: {
@@ -24,7 +24,7 @@ let historialSchema = mongoose.Schema({
             type: String
         },
         fecha: {
-            type: Date
+            type: String
         },
         detalle: {
             type: String
@@ -37,10 +37,6 @@ let historialSchema = mongoose.Schema({
         }
     },
     historial_clinico: {
-        antecedentes: {
-            type: Boolean,
-            default: false
-        },
         alergias: {
             type: Boolean,
             default: false
@@ -93,9 +89,6 @@ let historialSchema = mongoose.Schema({
     observaciones: {
         type: String,
         required: false
-    },
-    odontograma: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'db_odon',
     }
 });
 
@@ -108,9 +101,9 @@ historialSchema.statics.showHistorial = async () => {
     }
 }
 
-historialSchema.statics.showHistorialById = async (data) => {
+historialSchema.statics.showHistorialById = async (Id1, Id2) => {
     try {
-        let resp = await historial.find({dentista_id: data.dentista_id}).find({paciente_id: data.paciente_id});
+        let resp = await historial.find({dentista_id: Id1}).find({paciente_id: Id2});
         return resp;
     } catch (e) {
         console.log(e);

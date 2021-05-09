@@ -206,7 +206,5 @@ router.route('/addPaciente/:email')//recibe como parámetro email del dentista
         }
     })
 
-router.route('/addHistorial/:email')//recibe como parámetro email del dentista
-    .get()
 
 module.exports = router;

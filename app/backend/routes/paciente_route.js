@@ -1,11 +1,8 @@
 const express = require('express');
-// const multer = require('multer');
-// const upload = multer({ dest: 'uploads/' });
 const router = express.Router();
-
 const pacientes = require('../db/db_pacientes');
 const auth = require('../middlewares/auth');
-// const imgs = require('../multer-s3/s3');
+const fileUpload = require('../multer-s3/s3');
 
 
 router.route('/:_id')//recibe como parámetro _id del dentista
@@ -13,13 +10,10 @@ router.route('/:_id')//recibe como parámetro _id del dentista
         let ptt = await pacientes.showPacientesById(req.params._id);
         res.send(ptt);
     })
-    .post(async(req, res)=>{
-        console.log(req.body);
+    .post( async(req, res)=>{
+        //console.log(req.body);
         let idDentista = req.params._id;
-        let {name, email, password, phoneNumber, image, address, weight, height} = req.body;
-        // let file = req.file;
-        // let img = await imgs.uploadFile(file);
-        // let image = img.Key;
+        let {name, email, password, phoneNumber, /*image,*/address, weight, height} = req.body;
         let faltan ="";
 
         faltan+=name?'':'name, ';
@@ -42,6 +36,19 @@ router.route('/:_id')//recibe como parámetro _id del dentista
                 return;
             }  
         }
+
+        let image = fileUpload(req, res, (err) => {
+            if(err){
+                res.json(err);
+            }else{
+                if (req.file === undefined) {
+                    res.json('No image selected');
+                } else {
+                    const imageName = req.file.key;
+                    res.json(imageName);
+                }
+            }
+        })
 
         let newPtt = await pacientes.savePacientes({name, email, password, phoneNumber, image, idDentista, address, weight, height});
 
@@ -67,7 +74,7 @@ router.route('/:_id')//recibe como parámetro _id del dentista
  *          200:
  *              description: success call to the endpoint
  */
-router.route('/:email')
+router.route('/:email')//email del paciente
     .delete(async(req, res) => {
         let ptt = await pacientes.showPacientes();
         
