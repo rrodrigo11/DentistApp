@@ -1,27 +1,16 @@
 import { Injectable } from '@angular/core';
-import { SocialAuthService } from 'angularx-social-login';
 import { BehaviorSubject } from 'rxjs';
-// import { SocketIoService } from './socket-io.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  // loginStatus:BehaviorSubject<boolean> = new BehaviorSubject(false);
+  loginStatus:BehaviorSubject<any> = new BehaviorSubject(false);
 
-  constructor(/*private socket:SocketIoService , */private socialAuthService:SocialAuthService) {
-    // this.loginStatus.next(this.isLoggedIn());
+  constructor(/*private socket:SocketIoService , */) {
+    this.loginStatus.next(this.isLoggedIn());
   }
-
-  // save(data, google?) {
-  //   localStorage.setItem('token', data.token);
-  //   this.loginStatus.next(true);
-  //   this.socket.connect(data.token);
-  //   if(google) {
-  //     localStorage.setItem('social', '1');
-  //   }
-  // }
 
   get() {
     return localStorage.getItem('token');
@@ -35,21 +24,21 @@ export class AuthenticationService {
     return !!localStorage.getItem('social');
   }
 
-  // clear() {
-  //   return new Promise((resolve, reject) => {
-  //     const isSocial = this.isSocialUser();
-  //     localStorage.clear();
-  //     this.socket.disconnect();
-  //     if(isSocial) {
-  //       this.socialAuthService.signOut(true).then((response) => {
-  //         this.loginStatus.next(false);
-  //         resolve();
-  //       });  
-  //     } else {
-  //       this.loginStatus.next(false);
-  //       resolve();
-  //     }
-  //   });
-  // }
+  saveToken(token:string, email:string, idDentist:string){
+    localStorage.setItem('token', token);
+    localStorage.setItem('email',email);
+    localStorage.setItem('idDentist',idDentist);
+    this.loginStatus.next(true);
+  }
+
+  getToken():string|null{
+    return localStorage.getItem('token');
+  }
+
+  logout(){
+    localStorage.clear();
+    this.loginStatus.next(false);
+  }
+  
 
 }

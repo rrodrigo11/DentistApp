@@ -20,7 +20,6 @@ import { ClinicHistoryRegisterComponent } from './components/register/clinic-his
 import { OdontogramRegisterComponent } from './components/register/odontogram/odontogram.component';
 import { OdontogramInfoComponent } from './components/cruds/odontogram/odontogram-info/odontogram-info.component';
 import { OdontogramListComponent } from './components/cruds/odontogram/odontogram-list/odontogram-list.component';
-import { DentistListComponent } from './components/cruds/dentist/dentist-list/dentist-list.component';
 import { environment } from 'src/environments/environment';
 import { HeaderComponent } from './components/layouts/header/header.component';
 import { NgModalComponent } from './components/ng-modal/ng-modal.component';
@@ -42,7 +41,6 @@ import { NgModalComponent } from './components/ng-modal/ng-modal.component';
     OdontogramRegisterComponent,
     OdontogramInfoComponent,
     OdontogramListComponent,
-    DentistListComponent,
     HeaderComponent,
     NgModalComponent
     ],

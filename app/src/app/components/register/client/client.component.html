@@ -28,27 +28,14 @@
 
                         <div class="form-group col-md-6">
                             <input id="Mobile No." name="phone" formControlName="phone"  placeholder="Mobile No." class="form-control" type="text">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">Upload</span>
-                            </div>
                             <div class="custom-file">
                               <input type="file" class="custom-file-input" name="photo" formControlName="photo" id="inputGroupFile01">
                               <label class="custom-file-label" for="inputGroupFile01">Choose image</label>
                             </div>
-                          </div>
-
-                        <!-- <div class="form-group col-md-12">
-                                  <textarea id="comment" name="comment" cols="40" rows="5" class="form-control"></textarea>
-                        </div> -->
-
+                        </div>
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <input id="dentistno" name="dentist" formControlName="dentist" placeholder="Dentist No." class="form-control" type="number">
-                        </div>
                         <div class="form-group col-md-6">
                             <input id="addres" name="addres" formControlName="address" placeholder="Addres" class="form-control" type="text">
                         </div>
@@ -61,10 +48,11 @@
                     </div>
                     
                     <div class="form-row">
-                        <button type="button" class="btn btn-danger">Submit</button>
-                        <a routerLink="/client/list" class="py-1 px-2">Volver a lista de clientes</a>
+                        <button type="button" class="btn btn-primary" (click)="register()">Submit</button>
                     </div>
-                    <p>Formulario valido? {{form.valid}}</p>
+                    <div>
+                        <a routerLink="/client/list" class="py-1 px-2" >Volver a lista de clientes</a>
+                    </div>
                 </form>
             </div>
         </div>

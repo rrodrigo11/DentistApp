@@ -6,6 +6,8 @@ interface Diente {
   idDiente:number,
   descripcion: string
 }
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/common/services/authentication.service';
 
 @Component({
   selector: 'app-odontogram-info',
@@ -18,8 +20,19 @@ export class OdontogramInfoComponent implements OnInit {
   Odontograma:any = {}
 
 
-  constructor(private activatedRoute:ActivatedRoute, private sessionService: SessionService ) { }
+  loggedIn:boolean = false;
 
+  constructor(private router: Router,
+    private auth: AuthenticationService,
+    private activatedRoute:ActivatedRoute,
+    private sessionService: SessionService) {
+      this.auth.loginStatus.subscribe(flag=>{
+        this.loggedIn=flag;
+        if(!this.loggedIn){
+          this.router.navigate(['/login']);
+        }
+      })
+     }
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
       console.log(params.id)

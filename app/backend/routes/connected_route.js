@@ -1,5 +1,6 @@
 const router = require("express").Router();
 
+const userController = require("../controller/user.controller");
 const users = require('../db/db_users');
 const auth = require('../middlewares/auth');
 
@@ -14,5 +15,19 @@ router.route('/:email')
             return;
         }
     })
+
+// router.route('/')
+//     .get(async (req,res)=>{
+//         let token = req.get('x-auth');
+//         console.log('i llega');
+//         let email = await userController.getUserByEmail(token);
+//         if(email){
+//             res.status(200).send({email: email});
+//             return;
+//         }else{
+//             res.status(400).send({resp: "FALSE"});
+//             return;
+//         }
+//     })
 
 module.exports = router

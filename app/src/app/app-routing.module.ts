@@ -6,7 +6,6 @@ import { ClientListComponent } from './components/cruds/client/client-list/clien
 import { ClinicHistoryInfoComponent } from './components/cruds/clinic-history/clinic-history-info/clinic-history-info.component';
 import { ClinicHistoryListComponent } from './components/cruds/clinic-history/clinic-history-list/clinic-history-list.component';
 import { DentistInfoComponent } from './components/cruds/dentist/dentist-info/dentist-info.component';
-import { DentistListComponent } from './components/cruds/dentist/dentist-list/dentist-list.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ClientRegisterComponent } from './components/register/client/client.component';
@@ -23,7 +22,6 @@ const routes: Routes = [
   {path : 'dentist' , children:
     [
       {path: '' , component: DentistInfoComponent},
-      {path : 'list' , component: DentistListComponent},
       {path : 'register' , component: DentistRegisterComponent}
 
     ]

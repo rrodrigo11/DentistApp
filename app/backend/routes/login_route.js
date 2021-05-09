@@ -7,7 +7,7 @@ const users = require('../db/db_users');
  
  router.route('/').post(async (req, res)=>{
         let {email, password} = req.body; 
-        console.log(password+""); 
+        //console.log(req.body); 
         let resp = ""; 
         resp+=email? '' : ' email,';
         resp+=password? '' : ' password,';

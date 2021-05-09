@@ -1,5 +1,6 @@
 import { Component, OnInit , Input, Output, EventEmitter} from '@angular/core';
-import {ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/common/services/authentication.service';
 import { SessionService } from 'src/app/common/services/session.service';
 
 
@@ -18,8 +19,20 @@ interface User{
 export class ClinicHistoryListComponent implements OnInit {
 
   users:any[] =[]
+  loggedIn:boolean = false;
 
-  constructor(private activatedRoute:ActivatedRoute, private sessionService: SessionService ) {}
+  constructor(private router: Router,
+    private auth: AuthenticationService,
+    private activatedRoute:ActivatedRoute,
+    private sessionService: SessionService)
+     {
+      this.auth.loginStatus.subscribe(flag=>{
+        this.loggedIn=flag;
+        if(!this.loggedIn){
+          this.router.navigate(['/login']);
+        }
+      })
+     }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{

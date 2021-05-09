@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/common/services/authentication.service';
 @Component({
   selector: 'app-clinic-history',
   templateUrl: './clinic-history.component.html',
@@ -8,7 +10,19 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class ClinicHistoryRegisterComponent implements OnInit {
 
   form:FormGroup;
-  constructor(private formBuilder:FormBuilder) { }
+  loggedIn:boolean = false;
+
+  constructor(private router: Router,
+    private auth: AuthenticationService,
+    private formBuilder:FormBuilder) 
+    {
+      this.auth.loginStatus.subscribe(flag=>{
+        this.loggedIn=flag;
+        if(!this.loggedIn){
+          this.router.navigate(['/login']);
+        }
+      })
+    }
  
 
   ngOnInit(): void {

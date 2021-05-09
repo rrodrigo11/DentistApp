@@ -1,15 +1,13 @@
 import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/common/services/authentication.service';
 import { SessionService } from 'src/app/common/services/session.service';
 
-
-interface Diente {
+interface Diente{
   idDiente:number,
-  descripcion: string
+  descripcion:string
 }
-
-
 @Component({
   selector: 'app-odontogram',
   templateUrl: './odontogram.component.html',
@@ -61,8 +59,20 @@ export class OdontogramRegisterComponent implements OnInit {
     "37":"",
     "38":"",
   }
-  dientess: Diente[] = []
-  constructor(private activatedRoute:ActivatedRoute, private sessionService: SessionService) { }
+  dientess : Diente[]=[]
+  loggedIn:boolean = false;
+
+  constructor(private router: Router,
+    private auth: AuthenticationService,
+    private activatedRoute:ActivatedRoute,
+    private sessionService: SessionService) {
+      this.auth.loginStatus.subscribe(flag=>{
+        this.loggedIn=flag;
+        if(!this.loggedIn){
+          this.router.navigate(['/login']);
+        }
+      })
+     }
   isVisible:boolean = false;
 
   ngOnInit(): void {

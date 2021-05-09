@@ -6,7 +6,7 @@ import { AuthenticationService } from 'src/app/common/services/authentication.se
 import { SessionService } from 'src/app/common/services/session.service';
 
 interface Credentials{
-  username:string ;
+  email:string ;
   password:string ;
 }
 
@@ -17,18 +17,20 @@ interface Credentials{
 })
 export class LogInComponent implements OnInit{
 
+  user:any = {};
+  token:any;
 
   credentials:Credentials = {
-    username: "test",
-    password: "12345"
+    email: "test111@test.com",
+    password: "123456"
   };
 
   // loggedIn:boolean = false;
 
   form:FormGroup;
   inputType:string = 'password';
-  loginError:boolean;
-
+  loggedIn:boolean;
+  idDentista:string = "";
   constructor(
     private formBuilder:FormBuilder,
     private sessionService:SessionService,
@@ -44,20 +46,40 @@ export class LogInComponent implements OnInit{
          console.log('Google User?', user);
         this.sessionService.googleLogin(user.idToken).then(response => {
           console.log('Respuesta de API: ', response.token);
-          this.sessionService.saveToken(response.token);
+          this.user =  this.sessionService.getIdDentist(this.credentials.email).then(response=>{
+            this.user = response;
+            this.authService.saveToken(this.token,this.credentials.email,this.user._id);
+            let routerLink = "/client/list/"+this.user._id;
+            this.router.navigate([routerLink]);
+           });
+          //this.authService.saveToken(response.token,user.email);
           // this.authService.save(response, true);
-          // this.loginError = false;
-          // this.router.navigate(['/recientes']);
         }).catch(err=>{
           console.log('Encontre error:', err);
         });
       }
     });
 
+    this.authService.loginStatus.subscribe(flag=>{
+      this.loggedIn=flag;
+      if(this.loggedIn){
+        console.log(this.user._id)
+        this.router.navigate(['/client/list'+this.user._id]);
+      }
+    })
   }
 
-  hacerLogin(){
-    console.log('Ya hice click en el boton');
+   hacerLogin(){
+    console.log("Si funciona");
+    this.sessionService.login(this.credentials).then(response=>{
+      this.token = response.token;
+       this.user =  this.sessionService.getIdDentist(this.credentials.email).then(response=>{
+        this.user = response;
+        this.authService.saveToken(this.token,this.credentials.email,this.user._id);
+        let routerLink = "/client/list/"+this.user._id;
+        this.router.navigate([routerLink]);
+       });
+    });
   }
 
   googleLogin(){

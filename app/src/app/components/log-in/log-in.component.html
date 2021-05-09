@@ -5,31 +5,29 @@
             <form  (submit)="hacerLogin()">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text"  [(ngModel)]="credentials.username" name="username" class="form-control"  />
-                    <div routerLink="/cruds/client/client-list" class="invalid-feedback">
+                    <input  type="text"  [(ngModel)]="credentials.email" name="username" class="form-control"  />
+                    <div  class="invalid-feedback">
                         <div >Username is required</div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" [(ngModel)]="credentials.password" name="password" class="form-control"  />
-                    <div routerLink="/cruds/client/client-list" class="invalid-feedback">
+                    <div  class="invalid-feedback">
                         <div >Password is required</div>
                     </div>
                 </div>
+                
                 <div class="form-group">
-                    <button  class="btn btn-primary">
-                        <span routerLink="/client-list" ></span>
-                        Login
-                    </button>
+                    <button  class="btn btn-primary" type="submit">Login</button>
+                </div>
+
+                <div class="form-group">
                     <a routerLink="/dentist/register"  class="btn btn-link">Register</a>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-secondary" type="button" (click)="googleLogin()">
-                        Google Register
-                    </button>
-                    <button type="button" (click)="signOut()">
-                        Logout
+                        Google Login
                     </button>
                 </div>
             </form>

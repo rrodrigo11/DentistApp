@@ -1,8 +1,9 @@
 import { Component, OnInit , Input, Output, EventEmitter} from '@angular/core';
-import {ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from 'src/app/common/services/session.service';
 import { NgModalComponent } from 'src/app/components/ng-modal/ng-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthenticationService } from 'src/app/common/services/authentication.service';
 
 
 
@@ -22,18 +23,30 @@ interface User{
 export class ClientListComponent implements OnInit {
 
   users:any[] =[]
+  loggedIn:boolean = false;
 
-  constructor(private activatedRoute:ActivatedRoute, private sessionService: SessionService,  private _NgbModal: NgbModal ) {}
+  constructor(private activatedRoute:ActivatedRoute,
+     private sessionService: SessionService,
+      private _NgbModal: NgbModal,
+      private auth: AuthenticationService,
+      private router: Router ) {
+        this.auth.loginStatus.subscribe(flag=>{
+          this.loggedIn=flag;
+          if(this.loggedIn){
+           // this.router.navigate(['/client/list']);
+          }else{
+            this.router.navigate(['/login']);
+          }
+        })
+      }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params=>{
-      this.sessionService.getClients(params.email).then(response=>{
+      this.sessionService.getClients(localStorage.getItem("email")).then(response=>{
         console.log("Respuesta de la API: ", response);
         this.users = response;
       }).catch(err=>{
         console.log("Error de API:",err);
       });
-    })
   }
 
   myFunction()
@@ -89,5 +102,8 @@ export class ClientListComponent implements OnInit {
 
   }
   
+  addPacient(){
+    this.router.navigate(['/client/register']);
+  }
 
 }
