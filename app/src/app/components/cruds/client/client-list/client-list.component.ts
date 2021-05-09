@@ -41,7 +41,7 @@ export class ClientListComponent implements OnInit {
       }
 
   ngOnInit(): void {
-      this.sessionService.getClients(localStorage.getItem("email")).then(response=>{
+      this.sessionService.getClients(localStorage.getItem("idDentist")).then(response=>{
         console.log("Respuesta de la API: ", response);
         this.users = response;
       }).catch(err=>{

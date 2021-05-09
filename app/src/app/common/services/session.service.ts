@@ -15,6 +15,7 @@ export class SessionService {
   }
   getClients(email:any):Promise<any> {
     const url = `${environment.apiUrl}paciente_route/`+email;//Aqui es cambiar por login de backend
+    console.log(url);
     return this.httpClient.get(url).toPromise();
   }
   deleteClient(email:any):Promise<any> {

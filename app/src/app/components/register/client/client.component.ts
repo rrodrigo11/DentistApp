@@ -29,9 +29,9 @@ export class ClientRegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      nombre: ['', Validators.required  ],
-      email: ['', [Validators.required, Validators.email]  ],
-      phone: ['', Validators.required ],
+      name: ['pepe', Validators.required  ],
+      email: ['pp@test.com', [Validators.required, Validators.email]  ],
+      phone: ['1234567890', Validators.required ],
       photo: [''  ],
       address: [''  ],
       height: [''  ],

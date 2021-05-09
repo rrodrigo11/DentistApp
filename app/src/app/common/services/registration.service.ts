@@ -12,11 +12,9 @@ export class RegistrationService {
     private sessionService: SessionService) { }
 
   register(data:any){
-    
-    let url = `${environment.apiUrl}pacient_route/`;//Aqui es cambiar por login de backend
-    // let idDentista = this.sessionService.getIdDentist(data);
-    url = `${environment.apiUrl}pacient_route/${data.email}`;//Aqui es cambiar por login de backend
-    console.log(url);
+    let idDentist = localStorage.getItem("idDentist");
+    let url = `${environment.apiUrl}paciente_route/${idDentist}`;//Aqui es cambiar por login de backend
+    console.log(data,url);
     return this.httpClient.post(url, data).toPromise();
   }
 }

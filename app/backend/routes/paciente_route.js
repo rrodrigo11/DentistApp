@@ -8,24 +8,25 @@ const auth = require('../middlewares/auth');
 // const imgs = require('../multer-s3/s3');
 
 
-router.route('/:_id')//recibe como parámetro _id del dentista
+router.route('/:id')//recibe como parámetro _id del dentista
     .get( async(req, res)=>{
         let ptt = await pacientes.showPacientesById(req.params._id);
         res.send(ptt);
     })
     .post(async(req, res)=>{
         console.log(req.body);
-        let idDentista = req.params._id;
-        let {name, email, password, phoneNumber, image, address, weight, height} = req.body;
+        let idDentista = req.params.id;
+        let {name, email, password, phone, image, address, weight, height} = req.body;
         // let file = req.file;
         // let img = await imgs.uploadFile(file);
         // let image = img.Key;
         let faltan ="";
-
-        faltan+=name?'':'name, ';
-        faltan+=email?'':'email, ';
-        faltan+=password?'':'password, ';
-        faltan+=phoneNumber?'':'phoneNumber, ';
+        image="";
+        password=email;
+        //faltan+=name?'':'name, ';
+        //faltan+=email?'':'email, ';
+        //faltan+=password?'':'password, ';
+        //faltan+=phone?'':'phone, ';
         console.log(faltan.length);
 
         if(faltan.length>0){
@@ -42,8 +43,9 @@ router.route('/:_id')//recibe como parámetro _id del dentista
                 return;
             }  
         }
-
-        let newPtt = await pacientes.savePacientes({name, email, password, phoneNumber, image, idDentista, address, weight, height});
+        console.log({name, email, password, phone, image, idDentista, address, weight, height});
+        let newPtt = await pacientes.savePacientes({name, email, password, phone, image, idDentista, address, weight, height});
+        
 
         if(newPtt){
             res.status(201).send({usuario: newPtt});

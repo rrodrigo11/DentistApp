@@ -14,7 +14,7 @@ let pacienteSchema = mongoose.Schema({
     password: {
         type: String
     },
-    phoneNumber: {
+    phone: {
         type: Number,
         required: true
     },
@@ -25,16 +25,13 @@ let pacienteSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: 'db_users'
     },
     address: {
-        type: String,
-        required: true
+        type: String
     },
     weight: {
-        type: String,
-        required: false
+        type: String
     },
     height: {
-        type: String,
-        required: false
+        type: String
     },
     historial: [{
         idHistorial: {type: mongoose.Schema.Types.ObjectId, ref: 'db_historial'},

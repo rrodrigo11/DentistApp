@@ -32,8 +32,7 @@ export class HeaderComponent implements OnInit {
   }
 
   pacientsList(){
-    let email = localStorage.getItem("email");
-    let idDentist = this.sessionService.getIdDentist(email);
+    let idDentist = localStorage.getItem("idDentist")
     this.router.navigate([`/client/list/${idDentist}`]);
   }
 
