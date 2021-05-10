@@ -114,6 +114,7 @@ export class OdontogramRegisterComponent implements OnInit {
       this.activatedRoute.params.subscribe(params=>{
         this.sessionService.registerOdon(params.id,this.descrigeneral, this.dientess).then(response=>{
           console.log("Respuesta de la API: ", response);
+          this.router.navigate(['/clinic/'+params.id+'/'+params.did+'/'+params.pid]);
         }).catch(err=>{
           console.log("Error de API:",err);
         });

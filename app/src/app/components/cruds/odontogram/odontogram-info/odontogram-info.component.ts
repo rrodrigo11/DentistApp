@@ -26,18 +26,19 @@ export class OdontogramInfoComponent implements OnInit {
     private auth: AuthenticationService,
     private activatedRoute:ActivatedRoute,
     private sessionService: SessionService) {
-      this.auth.loginStatus.subscribe(flag=>{
-        this.loggedIn=flag;
-        if(!this.loggedIn){
-          this.router.navigate(['/login']);
-        }
-      })
+      // this.auth.loginStatus.subscribe(flag=>{
+      //   this.loggedIn=flag;
+      //   if(!this.loggedIn){
+      //     this.router.navigate(['/login']);
+      //   }
+      // })
      }
   ngOnInit(): void {
+    console.log("Si carga");
     this.activatedRoute.params.subscribe(params=>{
       console.log(params.id)
       this.sessionService.getOdon(params.idH).then(response=>{
-        console.log("Respuesta de la API: ", response[0]);
+        console.log("Respuesta de la API : ", response[0]);
         this.Odontograma = response[0];
         this.dientes = this.Odontograma.dientes
       }).catch(err=>{

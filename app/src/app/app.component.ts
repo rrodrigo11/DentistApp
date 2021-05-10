@@ -16,12 +16,12 @@ export class AppComponent {
     private router:Router) {
     ngbConfig.animation = true; //esta es la bandera para desactivar las animaciones bootstrap 
     
-    this.auth.loginStatus.subscribe(flag=>{
-      this.loggedIn=flag;
-      if(!this.loggedIn){
-        this.router.navigate(['/login']);//no funciona :/
-      }
-    })
+    // this.auth.loginStatus.subscribe(flag=>{
+    //   this.loggedIn=flag;
+    //   if(!this.loggedIn){
+    //     this.router.navigate(['/login']);//no funciona :/
+    //   }
+    // })
 
   }
 

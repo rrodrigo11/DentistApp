@@ -34,6 +34,7 @@ export class SessionService {
     const url = `${environment.apiUrl}odon_route/`+idH;//Aqui es cambiar por login de backend
     return this.httpClient.get(url).toPromise();
   }
+
   deleteClinic(idClinic:string){
     const url = `${environment.apiUrl}historial_route/`+idClinic;
     return this.httpClient.delete(url).toPromise();  }
@@ -55,11 +56,10 @@ export class SessionService {
     return this.httpClient.get(url).toPromise();
   }
   getClinic(id:any):Promise<any> {
-    console.log(id)
     const url = `${environment.apiUrl}historial_route/`+id //Aqui es cambiar por login de backend
-    console.log(url)
     return this.httpClient.get(url).toPromise();
   }
+
 
 
 
