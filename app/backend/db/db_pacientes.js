@@ -32,10 +32,7 @@ let pacienteSchema = mongoose.Schema({
     },
     height: {
         type: String
-    },
-    historial: [{
-        idHistorial: {type: mongoose.Schema.Types.ObjectId, ref: 'db_historial'},
-    }]
+    }
 });
 
 pacienteSchema.statics.showPacientes = async () => {
@@ -59,7 +56,7 @@ pacienteSchema.statics.showPacientesById = async (ID) => {
 pacienteSchema.statics.savePacientes = async (newPtt) => {
     let hash = bcryptjs.hashSync(newPtt.password, 8);
     newPtt.password = hash;
-    let ptt = pacientes(newPtt);
+    let ptt = pacientes(newPtt); 
     let doc;
     try {
         doc = await ptt.save();
@@ -82,15 +79,15 @@ pacienteSchema.statics.deletePaciente = async (correo) => {
 }
 
 pacienteSchema.statics.getPacienteByEmail = async (correo) =>{
-    let paciente;
+    let ptt;
     try{
         console.log( "Correo mandado a getPacienteByEmail " + correo);
-        paciente = await pacientes.findOne({email: ""+correo})
-        console.log(paciente);
+        ptt = await pacientes.findOne({email: ""+correo})
+        console.log(ptt);
     }catch(err){
         console.log("Ocurrio un error: ", e);
     }
-    return paciente;
+    return ptt;
 }
 pacienteSchema.methods.actualizarPaciente = async function (datos){
     let hash = bcryptjs.hashSync(datos.password, 8);

@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-
 const users = require('../db/db_users');
 const patients = require('../db/db_pacientes');
 const auth = require('../middlewares/auth');
+const fileUpload = require('../multer-s3/s3');
 
 /**
  * @swagger
@@ -51,6 +51,19 @@ router.route('/')
             }  
         }
 
+        // let image = fileUpload(req, res, (err) => {
+        //     if(err){
+        //         res.json(err);
+        //     }else{
+        //         if (req.file === undefined) {
+        //             res.json('No image selected');
+        //         } else {
+        //             const imageName = req.file.key;
+        //             res.json(imageName);
+        //         }
+        //     }
+        // })
+
         let newUser = await users.saveUsers({name, email, password, image, terms, pacientes});
 
         if(newUser){
@@ -93,7 +106,7 @@ router.route('/:email')//recibe como parámetro email del dentista
             res.status(400).send({error:"No se pudo eliminar. Verifique los datos y su conexión"});
         }
     })
-    .put(async(req, res)=>{
+    .put(async(req, res)=>{ 
         if(req.params.email == req.body.email){
             let doc;
             try{

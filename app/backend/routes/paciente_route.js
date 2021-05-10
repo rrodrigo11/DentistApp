@@ -4,7 +4,6 @@ const pacientes = require('../db/db_pacientes');
 const auth = require('../middlewares/auth');
 const fileUpload = require('../multer-s3/s3');
 
-
 router.route('/:_id')//recibe como parámetro _id del dentista
     .get( async(req, res)=>{
         let ptt = await pacientes.showPacientesById(req.params._id);
@@ -13,24 +12,21 @@ router.route('/:_id')//recibe como parámetro _id del dentista
     .post(async(req, res)=>{
         console.log(req.body);
         let idDentista = req.params.id;
-        let {name, email, password, phone, image, address, weight, height} = req.body;
-        // let file = req.file;
-        // let img = await imgs.uploadFile(file);
-        // let image = img.Key;
+        let {name, email, password, phone, address, weight, height} = req.body;
         let faltan ="";
         image="";
         password=email;
-        //faltan+=name?'':'name, ';
-        //faltan+=email?'':'email, ';
-        //faltan+=password?'':'password, ';
-        //faltan+=phone?'':'phone, ';
-        console.log(faltan.length);
+        // faltan+=name?'':'name, ';
+        // faltan+=email?'':'email, ';
+        // faltan+=password?'':'password, ';
+        // faltan+=phone?'':'phone, ';
+        // console.log(faltan.length);
 
-        if(faltan.length>0){
-            res.status(400).send({error: "faltan datos."});
-            console.log("falta: ", faltan);
-            return;
-        }
+        // if(faltan.length>0){
+        //     res.status(400).send({error: "faltan datos."});
+        //     console.log("falta: ", faltan);
+        //     return;
+        // }
 
         let ptt = await pacientes.showPacientes();
 
@@ -41,24 +37,31 @@ router.route('/:_id')//recibe como parámetro _id del dentista
             }  
         }
         console.log({name, email, password, phone, image, idDentista, address, weight, height});
-        let newPtt = await pacientes.savePacientes({name, email, password, phone, image, idDentista, address, weight, height});
+
         
 
-        // image = fileUpload(req, res, (err) => {
+        // let image = fileUpload(req, res, async(err) => {
         //     if(err){
         //         res.json(err);
-        //     }else{
+        //     }else{ 
         //         if (req.file === undefined) {
         //             res.json('No image selected');
         //         } else {
-        //             const imageName = req.file.key;
-        //             res.json(imageName);
+        //             let img = req.file.key;
+        //             let file = JSON.stringify(img);
+        //             console.log(file);
+        //             res.json(img);
+        //             return file;
         //         }
         //     }
         // })
 
+        // console.log(image);
+
+        let newPtt = await pacientes.savePacientes({name, email, password, phone, image, idDentista, address, weight, height});
+
         if(newPtt){
-            res.status(201).send({usuario: newPtt});
+            res.status(201).send({paciente: newPtt});
         }else{
             res.status(400).send({error:"No se pudo guardar. Verifique los datos y su conexión"});
         }
@@ -79,7 +82,7 @@ router.route('/:_id')//recibe como parámetro _id del dentista
  *          200:
  *              description: success call to the endpoint
  */
-router.route('/:email')//email del paciente
+router.route('/pp/:email')//email del paciente
     .delete(async(req, res) => {
         let ptt = await pacientes.showPacientes();
         
@@ -110,8 +113,9 @@ router.route('/:email')//email del paciente
             res.status(400).send({error:"No se debe de cambiar el correo."})
         }
     })
-    .get(auth.authToken, async(req, res)=>{
+    .get(async(req, res)=>{
         let ptt = await pacientes.getPacienteByEmail(req.params.email);
+        console.log(req.params.email);
         if(ptt){
             res.status(200).send(ptt);
             return;
