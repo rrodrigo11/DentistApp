@@ -43,7 +43,7 @@ const routes: Routes = [
   },
   {path : 'odontogram' , children:
     [
-      {path: ':idH' , component: OdontogramInfoComponent},
+      {path: ':idH/:did/:pid' , component: OdontogramInfoComponent},
       {path : 'list' , component: OdontogramListComponent},
       {path : 'register/:id/:did/:pid' , component: OdontogramRegisterComponent}
 

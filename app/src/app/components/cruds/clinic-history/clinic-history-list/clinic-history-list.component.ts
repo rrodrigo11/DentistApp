@@ -66,5 +66,6 @@ export class ClinicHistoryListComponent implements OnInit {
     })
 
   }
+  
 }
 

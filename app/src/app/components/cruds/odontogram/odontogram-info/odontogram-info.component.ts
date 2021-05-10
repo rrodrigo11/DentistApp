@@ -36,7 +36,7 @@ export class OdontogramInfoComponent implements OnInit {
   ngOnInit(): void {
     console.log("Si carga");
     this.activatedRoute.params.subscribe(params=>{
-      console.log(params.id)
+      console.log(params.idH)
       this.sessionService.getOdon(params.idH).then(response=>{
         console.log("Respuesta de la API : ", response[0]);
         this.Odontograma = response[0];
@@ -46,5 +46,15 @@ export class OdontogramInfoComponent implements OnInit {
       });
     })
   }
+  navigateClinic(){
+    this.activatedRoute.params.subscribe(params=>{
+       console.log(`/odontogram/${params.idH}`);
+      let idD = localStorage.getItem('idDentist');
+      let idp = localStorage.getItem('idDentist');
+      this.router.navigate([`/clinic/${params.idH}`]);
+      this.router.navigate(['/clinic/'+params.idH+'/'+params.did+'/'+params.pid]);
+    })  
+  }
+
 
 }

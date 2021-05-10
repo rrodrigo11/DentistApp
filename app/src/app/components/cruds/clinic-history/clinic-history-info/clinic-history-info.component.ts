@@ -56,13 +56,13 @@ export class ClinicHistoryInfoComponent implements OnInit {
   }
   addOdon(){
     this.activatedRoute.params.subscribe(params=>{
-      this.router.navigate(['/odontogram/register/'+params.id+'/'+params.did+'/'+params.pid]);
+      this.router.navigate(['/odontogram/register/'+params.idH+'/'+params.did+'/'+params.pid]);
     })
   }
   navigateOdon(){
     this.activatedRoute.params.subscribe(params=>{
        console.log(`/odontogram/${params.id}`);
-      this.router.navigate([`/odontogram/${params.id}`]);
+      this.router.navigate(['/odontogram/'+params.id +'/'+params.did+'/'+params.pid]);
       // this.router.navigate(['/clinic/'+params.id+'/'+params.did+'/'+params.pid]);
     })  
   }
