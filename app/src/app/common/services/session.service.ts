@@ -18,7 +18,7 @@ export class SessionService {
     return this.httpClient.get(url).toPromise();
   }
   getClient(email:any):Promise<any> {
-    const url = `${environment.apiUrl}paciente_route/`+email;//Aqui es cambiar por login de backend
+    const url = `${environment.apiUrl}paciente_route/pp/`+email;//Aqui es cambiar por login de backend
     console.log(url)
     return this.httpClient.get(url).toPromise();
   }

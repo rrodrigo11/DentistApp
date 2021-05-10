@@ -79,4 +79,9 @@ export class ClientInfoComponent implements OnInit {
 
   }
 
+  returnPacientList(){
+    let idD = localStorage.getItem('idDentist');
+      this.router.navigate(['/client/list/'+idD]);
+  }
+
 }
