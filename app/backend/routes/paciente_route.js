@@ -6,6 +6,7 @@ const fileUpload = require('../multer-s3/s3');
 
 router.route('/:_id')//recibe como parámetro _id del dentista
     .get( async(req, res)=>{
+        console.log("llega arriba")
         let ptt = await pacientes.showPacientesById(req.params._id);
         res.send(ptt);
     })
@@ -14,7 +15,7 @@ router.route('/:_id')//recibe como parámetro _id del dentista
         let idDentista = req.params.id;
         let {name, email, password, phone, address, weight, height} = req.body;
         let faltan ="";
-        image="";
+        let image="";
         password=email;
         // faltan+=name?'':'name, ';
         // faltan+=email?'':'email, ';
@@ -86,7 +87,7 @@ router.route('/pp/:email')//email del paciente
     .delete(async(req, res) => {
         let ptt = await pacientes.showPacientes();
         
-        if(!ptt.find(p => p.email == req.params.email)){
+        if(!ptt.find(p => p.email == req.params._id)){
             res.status(400).send({Error: "No existe el paciente a eliminar."});
             return;
         }
