@@ -29,7 +29,7 @@ const routes: Routes = [
   {path : 'client' , children:
     [
       {path : 'list/:id' , component: ClientListComponent},
-      {path: '' , component: ClientInfoComponent},
+      {path: ':email' , component: ClientInfoComponent},
       {path : 'register' , component: ClientRegisterComponent}
 
     ]
